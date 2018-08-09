@@ -1,9 +1,15 @@
+import java.util.ArrayList;
+
 /**
  * A Player who modifies the map Manages an inventory of Blocks Maintains a
  * position in the map (by maintaining the current tile that the Builder is on)
  *
  */
 public class Builder {
+
+    private java.util.List<Block> inventory;
+    private Tile currentTile;
+    private String name;
 
     /**
      * Create a builder. <br/>
@@ -15,6 +21,9 @@ public class Builder {
      * @param startingTile the tile the builder starts in - cannot be null
      */
     public Builder(java.lang.String name, Tile startingTile) {
+        // Because the other constructor throws but this one doesn't, we 
+        // cannot simply use this(). 
+        this(name, startingTile, new ArrayList<Block>());
     }
 
     /**
@@ -31,8 +40,17 @@ public class Builder {
      * @throws InvalidBlockException if for any Block (block) in startingInventory,
      *                               block.isCarryable() == false
      */
-    public Builder(java.lang.String name, Tile startingTile, java.util.List<Block> startingInventory)
-            throws InvalidBlockException {
+    public Builder(java.lang.String name, Tile startingTile, 
+            java.util.List<Block> startingInventory) throws InvalidBlockException {
+        for (Block b : startingInventory) {
+            if (!b.isCarryable())
+                throw new InvalidBlockException();
+        }
+    }
+
+    private void Init(String name, Tile startingTile, 
+            java.util.List<Block> startingInventory) {
+        
     }
 
     /**
@@ -85,6 +103,13 @@ public class Builder {
      *                               the current tile.
      */
     public void dropFromInventory(int inventoryIndex) throws InvalidBlockException, TooHighException {
+        java.util.List<Block> inventory = this.getInventory();
+        int inventorySize = inventory.size();
+        if (inventoryIndex < 0 || inventoryIndex >= inventorySize)
+            throw new InvalidBlockException();
+
+        Block block = inventory.get(inventoryIndex);
+        this.getCurrentTile().placeBlock(block);
     }
 
     /**
