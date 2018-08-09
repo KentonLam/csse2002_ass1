@@ -1,5 +1,5 @@
 /**
- * A wooden block or crate
+ * A wooden block or crate.
  *
  */
 public class WoodBlock implements Block {
@@ -12,12 +12,13 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * Get the colour of a WoodBlock <br/>
+     * Get the colour of a WoodBlock. <br/>
      * Always returns "brown"
      * 
      * @return "brown"
      */
     public java.lang.String getColour() {
+        return "brown";
     }
 
     /**
@@ -27,6 +28,7 @@ public class WoodBlock implements Block {
      * @return "wood"
      */
     public java.lang.String getBlockType() {
+        return "wood";
     }
 
     /**
@@ -36,6 +38,7 @@ public class WoodBlock implements Block {
      * @return true
      */
     public boolean isDiggable() {
+        return true;
     }
 
     /**
@@ -45,6 +48,7 @@ public class WoodBlock implements Block {
      * @return true
      */
     public boolean isCarryable() {
+        return true;
     }
 
     /**
@@ -54,6 +58,7 @@ public class WoodBlock implements Block {
      * @return true
      */
     public boolean isMoveable() {
+        return true;
     }
 
 }
