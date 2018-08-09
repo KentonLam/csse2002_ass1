@@ -2,7 +2,7 @@
  * A wooden block or crate
  *
  */
-public class WoodBlock extends java.lang.Object implements Block {
+public class WoodBlock implements Block {
 
     /**
      * 

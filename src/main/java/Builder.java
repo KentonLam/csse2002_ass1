@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A Player who modifies the map Manages an inventory of Blocks Maintains a
  * position in the map (by maintaining the current tile that the Builder is on)
  *
  */
-public class Builder extends java.lang.Object {
+public class Builder {
 
     /**
      * Create a builder. Set the name of the Builder (such that getName() == name)
@@ -40,6 +43,7 @@ public class Builder extends java.lang.Object {
      * @return the Builder's name
      */
     public java.lang.String getName() {
+        return "";
     }
 
     /**
@@ -48,6 +52,7 @@ public class Builder extends java.lang.Object {
      * @return the current tile
      */
     public Tile getCurrentTile() {
+        return new Tile();
     }
 
     /**
@@ -56,6 +61,7 @@ public class Builder extends java.lang.Object {
      * @return blocks in the inventory
      */
     public java.util.List<Block> getInventory() {
+        return new ArrayList<Block>();
     }
 
     /**
@@ -115,6 +121,7 @@ public class Builder extends java.lang.Object {
      * @return true if the tile can be entered
      */
     public boolean canEnter(Tile newTile) {
+        return false;
     }
 
     /**

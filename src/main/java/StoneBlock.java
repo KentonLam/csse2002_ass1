@@ -2,7 +2,7 @@
  * A stone block
  *
  */
-public class StoneBlock extends java.lang.Object implements Block {
+public class StoneBlock implements Block {
 
     /**
      * 
