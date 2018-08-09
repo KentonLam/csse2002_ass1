@@ -3,7 +3,7 @@
  * other tiles.
  *
  */
-public class Tile extends java.lang.Object implements java.io.Serializable {
+public class Tile implements java.io.Serializable {
 
     /**
      * Construct a new tile.<br/>

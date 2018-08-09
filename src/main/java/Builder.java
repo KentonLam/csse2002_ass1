@@ -3,7 +3,7 @@
  * position in the map (by maintaining the current tile that the Builder is on)
  *
  */
-public class Builder extends java.lang.Object {
+public class Builder {
 
     /**
      * Create a builder. <br/>
