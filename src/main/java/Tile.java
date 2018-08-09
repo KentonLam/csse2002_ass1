@@ -28,8 +28,8 @@ public class Tile extends java.lang.Object implements java.io.Serializable {
      * startingBlocks contains an instance of GroundBlock that is at an index of 3
      * or higher, throw a TooHighException.
      * 
-     * @param startingBlocks - a list of blocks on the tile, cannot be null
-     * @throws TooHighException - if startingBlocks.size() > 8, or if startingBlocks
+     * @param startingBlocks a list of blocks on the tile, cannot be null
+     * @throws TooHighException if startingBlocks.size() > 8, or if startingBlocks
      *                          elements ≥ 3 are instances of GroundBlock
      */
     public Tile(java.util.List<Block> startingBlocks) throws TooHighException {
@@ -56,7 +56,7 @@ public class Tile extends java.lang.Object implements java.io.Serializable {
      * Return the block that is the top block on the tile. If there are no blocks,
      * throw a TooLowException
      * 
-     * @throws TooLowException - if there are no blocks on the tile
+     * @throws TooLowException if there are no blocks on the tile
      * @return top Block or null if no blocks
      */
     public Block getTopBlock() throws TooLowException {
@@ -66,7 +66,7 @@ public class Tile extends java.lang.Object implements java.io.Serializable {
      * Remove the block on top of the tile Throw a TooLowException if there are no
      * blocks on the tile
      * 
-     * @throws TooLowException - if there are no blocks on the tile
+     * @throws TooLowException if there are no blocks on the tile
      */
     public void removeTopBlock() throws TooLowException {
     }
@@ -76,9 +76,9 @@ public class Tile extends java.lang.Object implements java.io.Serializable {
      * an entry (name, target). Overwrites any existing exit with the same name If
      * name or target is null, throw a NoExitException
      * 
-     * @param name   - Name of the exit
-     * @param target - Tile the exit goes to
-     * @throws NoExitException - if name or target is null
+     * @param name   Name of the exit
+     * @param target Tile the exit goes to
+     * @throws NoExitException if name or target is null
      */
     public void addExit(java.lang.String name, Tile target) throws NoExitException {
     }
@@ -88,8 +88,8 @@ public class Tile extends java.lang.Object implements java.io.Serializable {
      * have the key name. If name does not exist in getExits(), or name is null,
      * throw a NoExitException.
      * 
-     * @param name - Name of exit to remove
-     * @throws NoExitException - if name is not in exits, or name is null
+     * @param name Name of exit to remove
+     * @throws NoExitException if name is not in exits, or name is null
      */
     public void removeExit(java.lang.String name) throws NoExitException {
     }
@@ -102,8 +102,8 @@ public class Tile extends java.lang.Object implements java.io.Serializable {
      * Throw a TooLowException if there are no blocks on the tile Throw an
      * InvalidBlockException if the block is not diggable
      * 
-     * @throws TooLowException       - if there are no blocks on the tile
-     * @throws InvalidBlockException - if the block is not diggable
+     * @throws TooLowException       if there are no blocks on the tile
+     * @throws InvalidBlockException if the block is not diggable
      * @return the removed block or null
      */
     public Block dig() throws TooLowException, InvalidBlockException {
@@ -120,10 +120,10 @@ public class Tile extends java.lang.Object implements java.io.Serializable {
      * of blocks on the target tile is ≥ to this one, throw a TooHighException If
      * the block is not moveable, throw a InvalidBlockException
      * 
-     * @param exitName - the name of the exit to move the block to
-     * @throws TooHighException      - if the target tile is ≥ to this one.
-     * @throws InvalidBlockException - if the block is not moveable
-     * @throws NoExitException       - if the exit is null or does not exist
+     * @param exitName the name of the exit to move the block to
+     * @throws TooHighException      if the target tile is ≥ to this one.
+     * @throws InvalidBlockException if the block is not moveable
+     * @throws NoExitException       if the exit is null or does not exist
      */
     public void moveBlock(java.lang.String exitName) throws TooHighException, InvalidBlockException, NoExitException {
     }
@@ -137,11 +137,11 @@ public class Tile extends java.lang.Object implements java.io.Serializable {
      * more than 8 blocks already, or if the block is a GroundBlock and the target
      * block has more than 3 blocks already, throw a TooHighException
      * 
-     * @param block - the block to place.
-     * @throws TooHighException      - if there are already 8 blocks on the tile, or
+     * @param block the block to place.
+     * @throws TooHighException      if there are already 8 blocks on the tile, or
      *                               if this is a ground block and there are already
      *                               3 blocks on the tile.
-     * @throws InvalidBlockException - if the block is null
+     * @throws InvalidBlockException if the block is null
      */
     public void placeBlock(Block block) throws TooHighException, InvalidBlockException {
     }

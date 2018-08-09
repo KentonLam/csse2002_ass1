@@ -10,9 +10,9 @@ public class Builder extends java.lang.Object {
      * and the current tile to startingTile (such that getCurrentTile() ==
      * startingTile).
      * 
-     * @param name         - name of the builder (returned by getName())- cannot be
+     * @param name         name of the builder (returned by getName())- cannot be
      *                     null
-     * @param startingTile - the tile the builder starts in - cannot be null
+     * @param startingTile the tile the builder starts in - cannot be null
      */
     public Builder(java.lang.String name, Tile startingTile) {
     }
@@ -23,12 +23,12 @@ public class Builder extends java.lang.Object {
      * startingTile). Copy the starting inventory into the builder's inventory, such
      * that the contents of getInventory() are identical to startingInventory.
      * 
-     * @param name              - name of the builder (returned by getName()) -
-     *                          cannot be null
-     * @param startingTile      - the tile the builder starts in - cannot be null
-     * @param startingInventory - the starting inventory (blocks) - cannot be null
-     * @throws InvalidBlockException - if for any Block (block) in
-     *                               startingInventory, block.isCarryable() == false
+     * @param name              name of the builder (returned by getName()) - cannot
+     *                          be null
+     * @param startingTile      the tile the builder starts in - cannot be null
+     * @param startingInventory the starting inventory (blocks) - cannot be null
+     * @throws InvalidBlockException if for any Block (block) in startingInventory,
+     *                               block.isCarryable() == false
      */
     public Builder(java.lang.String name, Tile startingTile, java.util.List<Block> startingInventory)
             throws InvalidBlockException {
@@ -72,10 +72,10 @@ public class Builder extends java.lang.Object {
      * 
      * Hint: call Tile.placeBlock, after checking the inventory
      * 
-     * @param inventoryIndex - the index in the inventory to place
-     * @throws InvalidBlockException - if the inventoryIndex is out of the inventory
+     * @param inventoryIndex the index in the inventory to place
+     * @throws InvalidBlockException if the inventoryIndex is out of the inventory
      *                               range
-     * @throws TooHighException      - if there are 8 blocks on the current tile
+     * @throws TooHighException      if there are 8 blocks on the current tile
      *                               already, or if the block is an instance of
      *                               GroundBlock and there are already 3 blocks on
      *                               the current tile.
@@ -95,8 +95,8 @@ public class Builder extends java.lang.Object {
      * 
      * Hint: call Tile.dig()
      * 
-     * @throws TooLowException       - if there are no blocks on the current tile.
-     * @throws InvalidBlockException - if the top block is not diggable
+     * @throws TooLowException       if there are no blocks on the current tile.
+     * @throws InvalidBlockException if the top block is not diggable
      */
     public void digOnCurrentTile() throws TooLowException, InvalidBlockException {
     }
@@ -111,7 +111,7 @@ public class Builder extends java.lang.Object {
      * 
      * If newTile is null return false.
      * 
-     * @param newTile - the tile to test if we can enter
+     * @param newTile the tile to test if we can enter
      * @return true if the tile can be entered
      */
     public boolean canEnter(Tile newTile) {
@@ -122,8 +122,8 @@ public class Builder extends java.lang.Object {
      * builders current tile to be newTile. (i.e. getCurrentTile() == newTile) If
      * canEnter(newTile) == false then throw a NoExitException.
      * 
-     * @param newTile - the tile to move to
-     * @throws NoExitException - if canEnter(newTile) == false
+     * @param newTile the tile to move to
+     * @throws NoExitException if canEnter(newTile) == false
      */
     public void moveTo(Tile newTile) throws NoExitException {
     }
