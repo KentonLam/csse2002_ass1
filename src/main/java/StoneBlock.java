@@ -2,7 +2,7 @@
  * A stone block
  *
  */
-public class StoneBlock implements Block {
+public class StoneBlock extends java.lang.Object implements Block {
 
     /**
      * 
@@ -12,7 +12,8 @@ public class StoneBlock implements Block {
     }
 
     /**
-     * Get the colour of a StoneBlock Always returns "gray"
+     * Get the colour of a StoneBlock <br/>
+     * Always returns "gray"
      * 
      * @return "gray"
      */
@@ -20,7 +21,8 @@ public class StoneBlock implements Block {
     }
 
     /**
-     * Get the type of a StoneBlock Always returns "stone"
+     * Get the type of a StoneBlock <br/>
+     * Always returns "stone"
      * 
      * @return "stone"
      */
@@ -28,7 +30,8 @@ public class StoneBlock implements Block {
     }
 
     /**
-     * StoneBlocks are not diggable Always returns false
+     * StoneBlocks are not diggable <br/>
+     * Always returns false
      * 
      * @return false
      */
@@ -36,7 +39,8 @@ public class StoneBlock implements Block {
     }
 
     /**
-     * StoneBlocks are not moveable Always returns false
+     * StoneBlocks are not moveable <br/>
+     * Always returns false
      * 
      * @return false
      */
@@ -44,7 +48,8 @@ public class StoneBlock implements Block {
     }
 
     /**
-     * StoneBlocks are not carryable Always returns false
+     * StoneBlocks are not carryable <br/>
+     * Always returns false
      * 
      * @return false
      */

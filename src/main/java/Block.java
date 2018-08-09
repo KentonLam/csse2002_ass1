@@ -19,22 +19,24 @@ public interface Block {
     java.lang.String getBlockType();
 
     /**
-     * Is the block diggable? If so the block can be removed.
+     * Is the block diggable? <br/>
+     * If so the block can be removed.
      * 
      * @return true if diggable, false if not
      */
     boolean isDiggable();
 
     /**
-     * Is the block moveable? If so, the block can be shifted to adjacent tiles.
+     * Is the block moveable? <br/>
+     * If so, the block can be shifted to adjacent tiles.
      * 
      * @return true if moveable, false if not
      */
     boolean isMoveable();
 
     /**
-     * Is the block carryable? If so, the block can be added to the Builder's
-     * inventory.
+     * Is the block carryable? <br/>
+     * If so, the block can be added to the Builder's inventory.
      * 
      * @return true if carryable, false if not
      */

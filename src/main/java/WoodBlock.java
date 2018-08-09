@@ -2,7 +2,7 @@
  * A wooden block or crate
  *
  */
-public class WoodBlock implements Block {
+public class WoodBlock extends java.lang.Object implements Block {
 
     /**
      * 
@@ -12,7 +12,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * Get the colour of a WoodBlock Always returns "brown"
+     * Get the colour of a WoodBlock <br/>
+     * Always returns "brown"
      * 
      * @return "brown"
      */
@@ -20,7 +21,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * Get the type of a WoodBlock Always returns "wood"
+     * Get the type of a WoodBlock <br/>
+     * Always returns "wood"
      * 
      * @return "wood"
      */
@@ -28,7 +30,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * A woodblock is diggable Always returns true
+     * A woodblock is diggable <br/>
+     * Always returns true
      * 
      * @return true
      */
@@ -36,7 +39,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * A woodblock is carryable Always returns true
+     * A woodblock is carryable <br/>
+     * Always returns true
      * 
      * @return true
      */
@@ -44,7 +48,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * A woodblock is moveable Always returns true
+     * A woodblock is moveable <br/>
+     * Always returns true
      * 
      * @return true
      */

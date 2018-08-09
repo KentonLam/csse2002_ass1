@@ -2,7 +2,7 @@
  * An abstract GroundBlock that enforces not moveable and diggable
  *
  */
-public abstract class GroundBlock implements Block {
+public abstract class GroundBlock extends java.lang.Object implements Block {
 
     /**
      * 

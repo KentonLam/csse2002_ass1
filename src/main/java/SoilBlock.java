@@ -12,7 +12,8 @@ public class SoilBlock extends GroundBlock {
     }
 
     /**
-     * Get the colour of a SoilBlock Always returns "black"
+     * Get the colour of a SoilBlock <br/>
+     * Always returns "black"
      * 
      * @return "black"
      */
@@ -20,7 +21,8 @@ public class SoilBlock extends GroundBlock {
     }
 
     /**
-     * Get the type of a SoilBlock Always returns "soil"
+     * Get the type of a SoilBlock <br/>
+     * Always returns "soil"
      * 
      * @return "soil"
      */
@@ -28,7 +30,8 @@ public class SoilBlock extends GroundBlock {
     }
 
     /**
-     * SoilBlocks are carryable. Always returns true
+     * SoilBlocks are carryable. <br/>
+     * Always returns true
      * 
      * @return true
      */
