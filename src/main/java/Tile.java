@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +10,8 @@ import java.util.Map;
  */
 public class Tile implements java.io.Serializable {
 
-    private List<Block> blocks;
-    private Map<String, Tile> exits;
+    private List<Block> blocks = new ArrayList<Block>();
+    private Map<String, Tile> exits = new HashMap<String, Tile>();
 
     /**
      * Construct a new tile.<br/>
@@ -22,7 +23,6 @@ public class Tile implements java.io.Serializable {
      *
      */
     public Tile() {
-        this.blocks = new ArrayList<Block>();
         // TODO Is there a neater way to do this in java? :/
         this.blocks.add(new SoilBlock()); 
         this.blocks.add(new SoilBlock());
@@ -52,7 +52,6 @@ public class Tile implements java.io.Serializable {
      *                          elements ≥ 3 are instances of GroundBlock
      */
     public Tile(java.util.List<Block> startingBlocks) throws TooHighException {
-        this.blocks = new ArrayList<Block>();
         for (Block b : startingBlocks) {
             try {
                 // We can do this because if the constructor throws, the
