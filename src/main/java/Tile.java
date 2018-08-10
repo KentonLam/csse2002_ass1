@@ -208,9 +208,18 @@ public class Tile implements java.io.Serializable {
             // This should never happen because if our height is 0, it is
             // necessarily <= any other tile's height and we would have thrown
             // TooHighException already.
-            throw new AssertionError(
-                "This tile is empty, but its height is "
-                +"greater than some other tile.", e);
+            throw new AssertionError(e);
+        }
+
+        // The block can be moved, move it.
+        Block b = this.blocks.remove(this.blocks.size()-1);
+        try {
+            newTile.placeBlock(b);
+        } catch (TooHighException e) {
+            // Similarly to TooLowException in getTopBlock() being impossible,
+            // this will never throw a TooHighException. Because the other height
+            // must be < our height, it will always be valid for our top block.
+            throw new AssertionError(e);
         }
 
 
