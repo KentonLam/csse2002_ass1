@@ -18,6 +18,7 @@ public class SoilBlock extends GroundBlock {
      * @return "black"
      */
     public java.lang.String getColour() {
+        return "black";
     }
 
     /**
@@ -27,6 +28,7 @@ public class SoilBlock extends GroundBlock {
      * @return "soil"
      */
     public java.lang.String getBlockType() {
+        return "soil";
     }
 
     /**
@@ -36,6 +38,7 @@ public class SoilBlock extends GroundBlock {
      * @return true
      */
     public boolean isCarryable() {
+        return true;
     }
 
 }

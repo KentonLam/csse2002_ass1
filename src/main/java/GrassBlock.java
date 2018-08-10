@@ -18,6 +18,7 @@ public class GrassBlock extends GroundBlock {
      * @return "green"
      */
     public java.lang.String getColour() {
+        return "green";
     }
 
     /**
@@ -27,6 +28,7 @@ public class GrassBlock extends GroundBlock {
      * @return "grass"
      */
     public java.lang.String getBlockType() {
+        return "grass";
     }
 
     /**
@@ -36,6 +38,7 @@ public class GrassBlock extends GroundBlock {
      * @return false
      */
     public boolean isCarryable() {
+        return false;
     }
 
 }

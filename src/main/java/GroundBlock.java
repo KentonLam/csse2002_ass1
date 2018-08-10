@@ -17,6 +17,7 @@ public abstract class GroundBlock implements Block {
      * @return false
      */
     public final boolean isMoveable() {
+        return false;
     }
 
     /**
@@ -25,6 +26,7 @@ public abstract class GroundBlock implements Block {
      * @return true
      */
     public final boolean isDiggable() {
+        return true;
     }
 
 }

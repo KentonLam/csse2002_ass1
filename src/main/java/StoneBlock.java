@@ -18,6 +18,7 @@ public class StoneBlock implements Block {
      * @return "gray"
      */
     public java.lang.String getColour() {
+        return "gray";
     }
 
     /**
@@ -27,6 +28,7 @@ public class StoneBlock implements Block {
      * @return "stone"
      */
     public java.lang.String getBlockType() {
+        return "stone";
     }
 
     /**
@@ -36,6 +38,7 @@ public class StoneBlock implements Block {
      * @return false
      */
     public boolean isDiggable() {
+        return false;
     }
 
     /**
@@ -45,6 +48,7 @@ public class StoneBlock implements Block {
      * @return false
      */
     public boolean isMoveable() {
+        return false;
     }
 
     /**
@@ -54,6 +58,7 @@ public class StoneBlock implements Block {
      * @return false
      */
     public boolean isCarryable() {
+        return false;
     }
 
 }
