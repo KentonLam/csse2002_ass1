@@ -1,9 +1,16 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Tiles for a map. Contains Blocks Maintains a mapping between exit names and
  * other tiles.
  *
  */
 public class Tile implements java.io.Serializable {
+
+    private List<Block> blocks;
+    private Map<String, Tile> exits;
 
     /**
      * Construct a new tile.<br/>
@@ -15,6 +22,11 @@ public class Tile implements java.io.Serializable {
      *
      */
     public Tile() {
+        this.blocks = new ArrayList<Block>();
+        // TODO Is there a neater way to do this in java? :/
+        this.blocks.add(new SoilBlock()); 
+        this.blocks.add(new SoilBlock());
+        this.blocks.add(new GrassBlock());
     }
 
     /**
@@ -40,6 +52,18 @@ public class Tile implements java.io.Serializable {
      *                          elements ≥ 3 are instances of GroundBlock
      */
     public Tile(java.util.List<Block> startingBlocks) throws TooHighException {
+        this.blocks = new ArrayList<Block>();
+        for (Block b : startingBlocks) {
+            try {
+                // We can do this because if the constructor throws, the
+                // instance doesn't get created, so no half constructed tile
+                // will ever be created.
+                this.placeBlock(b);
+            } catch (InvalidBlockException e) {
+                // By assumption, the elements of startingBlocks are non-null.
+                // Only here because this constructor can't throw invalid block.
+            }
+        }
     }
 
     /**
@@ -49,6 +73,7 @@ public class Tile implements java.io.Serializable {
      * @return map of names to Tiles
      */
     public java.util.Map<String, Tile> getExits() {
+        return this.exits;
     }
 
     /**
@@ -59,6 +84,12 @@ public class Tile implements java.io.Serializable {
      * @return Blocks on the Tile
      */
     public java.util.List<Block> getBlocks() {
+        return this.blocks;
+    }
+
+    private void ensureNonEmpty() throws TooLowException {
+        if (this.blocks.size() <= 0)
+            throw new TooLowException();
     }
 
     /**
@@ -69,6 +100,8 @@ public class Tile implements java.io.Serializable {
      * @return top Block or null if no blocks
      */
     public Block getTopBlock() throws TooLowException {
+        this.ensureNonEmpty();
+        return this.blocks.get(this.blocks.size()-1);
     }
 
     /**
@@ -78,6 +111,8 @@ public class Tile implements java.io.Serializable {
      * @throws TooLowException if there are no blocks on the tile
      */
     public void removeTopBlock() throws TooLowException {
+        this.ensureNonEmpty();
+        this.blocks.remove(0);
     }
 
     /**
@@ -91,6 +126,9 @@ public class Tile implements java.io.Serializable {
      * @throws NoExitException if name or target is null
      */
     public void addExit(String name, Tile target) throws NoExitException {
+        if (name == null || target == null) 
+            throw new NoExitException();
+        this.exits.put(name, target);
     }
 
     /**
@@ -103,6 +141,13 @@ public class Tile implements java.io.Serializable {
      * @throws NoExitException if name is not in exits, or name is null
      */
     public void removeExit(String name) throws NoExitException {
+        this.ensureCanExit(name);
+        this.exits.remove(name);
+    }
+
+    private void ensureCanExit(String exitName) throws NoExitException {
+        if (exitName == null || !this.exits.containsKey(exitName))
+            throw new NoExitException();
     }
 
     /**
@@ -120,6 +165,11 @@ public class Tile implements java.io.Serializable {
      * @return the removed block or null
      */
     public Block dig() throws TooLowException, InvalidBlockException {
+        this.ensureNonEmpty();
+        Block topBlock = this.getTopBlock();
+        if (!topBlock.isDiggable())
+            throw new InvalidBlockException();
+        return topBlock;
     }
 
     /**
@@ -141,7 +191,24 @@ public class Tile implements java.io.Serializable {
      * @throws InvalidBlockException if the block is not moveable
      * @throws NoExitException       if the exit is null or does not exist
      */
-    public void moveBlock(String exitName) throws TooHighException, InvalidBlockException, NoExitException {
+    public void moveBlock(String exitName) 
+            throws TooHighException, InvalidBlockException, NoExitException {
+        this.ensureCanExit(exitName);
+        
+        Tile newTile = this.exits.get(exitName);
+        if (newTile.getBlocks().size() >= this.blocks.size())
+            throw new TooHighException();
+
+        try {
+            if (!this.getTopBlock().isMoveable())
+                throw new InvalidBlockException();
+        } catch (TooLowException e) {
+            // This will never happen because if our height is 0, it must
+            // be <= the target tile's height and we would have thrown 
+            // TooHighException already.
+        }
+        
+
     }
 
     /**
@@ -162,6 +229,12 @@ public class Tile implements java.io.Serializable {
      * @throws InvalidBlockException if the block is null
      */
     public void placeBlock(Block block) throws TooHighException, InvalidBlockException {
+        if (block == null)
+            throw new InvalidBlockException();
+        int maxHeight = (block instanceof GroundBlock) ? 3 : 8;
+        if (this.blocks.size() >= maxHeight)
+            throw new TooHighException();
+        this.blocks.add(block);
     }
 
 }
