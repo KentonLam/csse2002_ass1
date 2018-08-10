@@ -16,14 +16,14 @@ public class Builder {
      * Create a builder. <br/>
      * Set the name of the Builder (such that getName() == name) and the current
      * tile to startingTile (such that getCurrentTile() == startingTile).
-     * 
+     *
      * @param name         name of the builder (returned by getName())- cannot be
      *                     null
      * @param startingTile the tile the builder starts in - cannot be null
      */
     public Builder(String name, Tile startingTile) {
-        // Because the other constructor throws but this one doesn't, we 
-        // can't chain the other one from here. 
+        // Because the other constructor throws but this one doesn't, we
+        // can't chain the other one from here.
         this.name = name;
         this.currentTile = startingTile;
         this.inventory = new ArrayList<Block>();
@@ -35,7 +35,7 @@ public class Builder {
      * tile to startingTile (such that getCurrentTile() == startingTile). <br/>
      * Copy the starting inventory into the builder's inventory, such that the
      * contents of getInventory() are identical to startingInventory.
-     * 
+     *
      * @param name              name of the builder (returned by getName()) - cannot
      *                          be null
      * @param startingTile      the tile the builder starts in - cannot be null
@@ -43,7 +43,7 @@ public class Builder {
      * @throws InvalidBlockException if for any Block (block) in startingInventory,
      *                               block.isCarryable() == false
      */
-    public Builder(String name, Tile startingTile, 
+    public Builder(String name, Tile startingTile,
             java.util.List<Block> startingInventory) throws InvalidBlockException {
         this(name, startingTile);
         for (Block b : startingInventory) {
@@ -55,7 +55,7 @@ public class Builder {
 
     /**
      * Get the Builder's name
-     * 
+     *
      * @return the Builder's name
      */
     public String getName() {
@@ -64,7 +64,7 @@ public class Builder {
 
     /**
      * Get the current tile that the builder is on
-     * 
+     *
      * @return the current tile
      */
     public Tile getCurrentTile() {
@@ -73,7 +73,7 @@ public class Builder {
 
     /**
      * What is in the Builder's inventory
-     * 
+     *
      * @return blocks in the inventory
      */
     public java.util.List<Block> getInventory() {
@@ -96,7 +96,7 @@ public class Builder {
      * block is a GroundBlock, throw a TooHighException</li>
      * </ol>
      * Hint: call Tile.placeBlock, after checking the inventory
-     * 
+     *
      * @param inventoryIndex the index in the inventory to place
      * @throws InvalidBlockException if the inventoryIndex is out of the inventory
      *                               range
@@ -129,7 +129,7 @@ public class Builder {
      * the inventory.</li>
      * </ol>
      * Hint: call Tile.dig()
-     * 
+     *
      * @throws TooLowException       if there are no blocks on the current tile.
      * @throws InvalidBlockException if the top block is not diggable
      */
@@ -150,7 +150,7 @@ public class Builder {
      * </li>
      * </ol>
      * If newTile is null return false.
-     * 
+     *
      * @param newTile the tile to test if we can enter
      * @return true if the tile can be entered
      */
@@ -162,7 +162,7 @@ public class Builder {
             if (tile.equals(newTile)) {
                 int newHeight = tile.getBlocks().size();
                 int currentHeight = this.currentTile.getBlocks().size();
-                
+
                 if (Math.abs(newHeight - currentHeight) <= 1) {
                     canEnter = true;
                     break;
@@ -180,7 +180,7 @@ public class Builder {
      * If canEnter(newTile) == true then change the builders current tile to be
      * newTile. (i.e. getCurrentTile() == newTile) <br/>
      * If canEnter(newTile) == false then throw a NoExitException.
-     * 
+     *
      * @param newTile the tile to move to
      * @throws NoExitException if canEnter(newTile) == false
      */
