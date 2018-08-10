@@ -17,7 +17,7 @@ public class GrassBlock extends GroundBlock {
      * 
      * @return "green"
      */
-    public java.lang.String getColour() {
+    public String getColour() {
         return "green";
     }
 
@@ -27,7 +27,7 @@ public class GrassBlock extends GroundBlock {
      * 
      * @return "grass"
      */
-    public java.lang.String getBlockType() {
+    public String getBlockType() {
         return "grass";
     }
 

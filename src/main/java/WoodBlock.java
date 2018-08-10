@@ -17,7 +17,7 @@ public class WoodBlock implements Block {
      * 
      * @return "brown"
      */
-    public java.lang.String getColour() {
+    public String getColour() {
         return "brown";
     }
 
@@ -27,7 +27,7 @@ public class WoodBlock implements Block {
      * 
      * @return "wood"
      */
-    public java.lang.String getBlockType() {
+    public String getBlockType() {
         return "wood";
     }
 

@@ -21,7 +21,7 @@ public class Builder {
      *                     null
      * @param startingTile the tile the builder starts in - cannot be null
      */
-    public Builder(java.lang.String name, Tile startingTile) {
+    public Builder(String name, Tile startingTile) {
         // Because the other constructor throws but this one doesn't, we 
         // can't chain the other one from here. 
         this.setInitialState(name, startingTile, new ArrayList<Block>());
@@ -41,7 +41,7 @@ public class Builder {
      * @throws InvalidBlockException if for any Block (block) in startingInventory,
      *                               block.isCarryable() == false
      */
-    public Builder(java.lang.String name, Tile startingTile, 
+    public Builder(String name, Tile startingTile, 
             java.util.List<Block> startingInventory) throws InvalidBlockException {
         for (Block b : startingInventory) {
             if (!b.isCarryable())
@@ -69,7 +69,7 @@ public class Builder {
      * 
      * @return the Builder's name
      */
-    public java.lang.String getName() {
+    public String getName() {
         return this.name;
     }
 

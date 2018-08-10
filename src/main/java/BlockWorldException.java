@@ -2,7 +2,7 @@
  * Base class for custom exceptions related to blocks
  *
  */
-public class BlockWorldException extends java.lang.Exception {
+public class BlockWorldException extends Exception {
 
     /**
      * 

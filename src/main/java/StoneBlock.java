@@ -17,7 +17,7 @@ public class StoneBlock implements Block {
      * 
      * @return "gray"
      */
-    public java.lang.String getColour() {
+    public String getColour() {
         return "gray";
     }
 
@@ -27,7 +27,7 @@ public class StoneBlock implements Block {
      * 
      * @return "stone"
      */
-    public java.lang.String getBlockType() {
+    public String getBlockType() {
         return "stone";
     }
 

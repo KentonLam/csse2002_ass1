@@ -9,14 +9,14 @@ public interface Block {
      * 
      * @return the name of a colour
      */
-    java.lang.String getColour();
+    String getColour();
 
     /**
      * Get the type of a block
      * 
      * @return the name of a block type (see subclasses)
      */
-    java.lang.String getBlockType();
+    String getBlockType();
 
     /**
      * Is the block diggable? <br/>

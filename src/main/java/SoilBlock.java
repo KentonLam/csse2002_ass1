@@ -17,7 +17,7 @@ public class SoilBlock extends GroundBlock {
      * 
      * @return "black"
      */
-    public java.lang.String getColour() {
+    public String getColour() {
         return "black";
     }
 
@@ -27,7 +27,7 @@ public class SoilBlock extends GroundBlock {
      * 
      * @return "soil"
      */
-    public java.lang.String getBlockType() {
+    public String getBlockType() {
         return "soil";
     }
 

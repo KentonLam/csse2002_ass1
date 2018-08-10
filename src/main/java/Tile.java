@@ -48,7 +48,7 @@ public class Tile implements java.io.Serializable {
      * 
      * @return map of names to Tiles
      */
-    public java.util.Map<java.lang.String, Tile> getExits() {
+    public java.util.Map<String, Tile> getExits() {
     }
 
     /**
@@ -90,7 +90,7 @@ public class Tile implements java.io.Serializable {
      * @param target Tile the exit goes to
      * @throws NoExitException if name or target is null
      */
-    public void addExit(java.lang.String name, Tile target) throws NoExitException {
+    public void addExit(String name, Tile target) throws NoExitException {
     }
 
     /**
@@ -102,7 +102,7 @@ public class Tile implements java.io.Serializable {
      * @param name Name of exit to remove
      * @throws NoExitException if name is not in exits, or name is null
      */
-    public void removeExit(java.lang.String name) throws NoExitException {
+    public void removeExit(String name) throws NoExitException {
     }
 
     /**
@@ -141,7 +141,7 @@ public class Tile implements java.io.Serializable {
      * @throws InvalidBlockException if the block is not moveable
      * @throws NoExitException       if the exit is null or does not exist
      */
-    public void moveBlock(java.lang.String exitName) throws TooHighException, InvalidBlockException, NoExitException {
+    public void moveBlock(String exitName) throws TooHighException, InvalidBlockException, NoExitException {
     }
 
     /**
