@@ -134,8 +134,7 @@ public class Builder {
      * @throws InvalidBlockException if the top block is not diggable
      */
     public void digOnCurrentTile() throws TooLowException, InvalidBlockException {
-        Block dugBlock;
-        dugBlock = this.currentTile.dig();
+        Block dugBlock = this.currentTile.dig();
         if (dugBlock.isCarryable())
             this.inventory.add(dugBlock);
     }
