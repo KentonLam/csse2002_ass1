@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A Player who modifies the map Manages an inventory of Blocks Maintains a
@@ -22,8 +23,8 @@ public class Builder {
      */
     public Builder(java.lang.String name, Tile startingTile) {
         // Because the other constructor throws but this one doesn't, we 
-        // cannot simply use this(). 
-        this(name, startingTile, new ArrayList<Block>());
+        // can't chain the other one from here. 
+        this.setInitialState(name, startingTile, new ArrayList<Block>());
     }
 
     /**
@@ -46,11 +47,21 @@ public class Builder {
             if (!b.isCarryable())
                 throw new InvalidBlockException();
         }
+        this.setInitialState(name, startingTile, startingInventory);
     }
 
-    private void Init(String name, Tile startingTile, 
+    /**
+     * Helper method to store the initial state. Assumes all values are valid.
+     * @param name              name of the builder (returned by getName()) - cannot
+     *                          be null
+     * @param startingTile      the tile the builder starts in - cannot be null
+     * @param startingInventory the starting inventory (blocks) - cannot be null
+     */
+    private void setInitialState(String name, Tile startingTile, 
             java.util.List<Block> startingInventory) {
-        
+        this.name = name;
+        this.currentTile = startingTile;
+        this.inventory = startingInventory;
     }
 
     /**
@@ -59,6 +70,7 @@ public class Builder {
      * @return the Builder's name
      */
     public java.lang.String getName() {
+        return this.name;
     }
 
     /**
@@ -67,6 +79,7 @@ public class Builder {
      * @return the current tile
      */
     public Tile getCurrentTile() {
+        return this.currentTile;
     }
 
     /**
@@ -75,6 +88,7 @@ public class Builder {
      * @return blocks in the inventory
      */
     public java.util.List<Block> getInventory() {
+        return this.inventory;
     }
 
     /**
@@ -109,7 +123,8 @@ public class Builder {
             throw new InvalidBlockException();
 
         Block block = inventory.get(inventoryIndex);
-        this.getCurrentTile().placeBlock(block);
+        this.currentTile.placeBlock(block);
+        inventory.remove(inventoryIndex);
     }
 
     /**
@@ -130,6 +145,10 @@ public class Builder {
      * @throws InvalidBlockException if the top block is not diggable
      */
     public void digOnCurrentTile() throws TooLowException, InvalidBlockException {
+        Block dugBlock;
+        dugBlock = this.currentTile.dig();
+        if (dugBlock.isCarryable())
+            this.inventory.add(dugBlock);
     }
 
     /**
@@ -148,6 +167,24 @@ public class Builder {
      * @return true if the tile can be entered
      */
     public boolean canEnter(Tile newTile) {
+        if (newTile == null)
+            return false;
+        boolean canEnter = false;
+        for (Tile tile : this.currentTile.getExits().values()) {
+            if (tile.equals(newTile)) {
+                int newHeight = tile.getBlocks().size();
+                int currentHeight = this.currentTile.getBlocks().size();
+                
+                if (Math.abs(newHeight - currentHeight) <= 1) {
+                    canEnter = true;
+                    break;
+                }
+
+                // We could break here, but it is not guaranteed that there is
+                // only one exit to a particular tile.
+            }
+        }
+        return canEnter;
     }
 
     /**
@@ -160,6 +197,10 @@ public class Builder {
      * @throws NoExitException if canEnter(newTile) == false
      */
     public void moveTo(Tile newTile) throws NoExitException {
+        if (!this.canEnter(newTile))
+            throw new NoExitException();
+        else
+            this.currentTile = newTile;
     }
 
 }
