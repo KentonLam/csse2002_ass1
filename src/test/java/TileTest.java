@@ -35,17 +35,21 @@ public class TileTest {
      * blocks correctly and enforces height limits on blocks correctly.
      */
     @Test
-    public void testConstructor2() throws TooHighException {
+    public void testConstructor2() throws Exception {
+        // Often in these test cases, there is code which could throw but
+        // shouldn't. Such code is included bare in a test method which
+        // throws Exception. Any exception outside a try/catch fails the test.
+
         List<Block> blocks = new ArrayList<Block>();
         blocks.add(new GrassBlock());
         blocks.add(new GrassBlock());
         blocks.add(new GrassBlock());
 
-        Tile t = new Tile(blocks); // shouldn't throw.
+        Tile t = new Tile(blocks); // Testing 3 starting ground blocks.
         assertEquals("Incorrect blocks.", blocks, t.getBlocks());
 
-        blocks.add(new WoodBlock());
-        t = new Tile(blocks); // shouldn't throw.
+        blocks.add(new WoodBlock()); // Testing 3 ground blocks, 1 non-ground.
+        t = new Tile(blocks);
 
         blocks.remove(blocks.size()-1);
         blocks.add(new GrassBlock());
@@ -58,7 +62,7 @@ public class TileTest {
         for (int i = 0; i < 5; i++) {
             blocks.add(new WoodBlock());
         }
-        t = new Tile(blocks);
+        t = new Tile(blocks); // Tests 3 ground blocks and 5 non-ground.
 
         blocks.add(new WoodBlock());
         try {
@@ -68,7 +72,7 @@ public class TileTest {
     }
 
     @Test
-    public void testExits() throws NoExitException {
+    public void testExits() throws Exception {
         Tile t = new Tile();
 
         try {
@@ -93,7 +97,7 @@ public class TileTest {
     }
 
     @Test
-    public void testGetBlocks() throws TooHighException {
+    public void testGetBlocks() throws Exception {
         List<Block> b = Arrays.asList((Block)new SoilBlock(), new WoodBlock());
         Tile t = new Tile(b);
         assertEquals("Incorrect blocks.", b, t.getBlocks());
@@ -113,7 +117,7 @@ public class TileTest {
     }
 
     @Test
-    public void testGetTopBlock() throws TooHighException, TooLowException {
+    public void testGetTopBlock() throws Exception {
         Tile t = new Tile(new ArrayList<Block>());
 
         try {
@@ -127,7 +131,7 @@ public class TileTest {
     }
 
     @Test
-    public void testRemoveTopBlock() throws TooLowException, TooHighException {
+    public void testRemoveTopBlock() throws Exception {
         Tile t = new Tile(new ArrayList<Block>());
 
         try {
@@ -149,7 +153,7 @@ public class TileTest {
     }
 
     @Test
-    public void testRemoveExit() throws NoExitException {
+    public void testRemoveExit() throws Exception {
         Tile t = new Tile();
         t.addExit("up", t);
         t.addExit("right", t);
@@ -171,8 +175,7 @@ public class TileTest {
     }
 
     @Test
-    public void testDig()
-            throws TooLowException, InvalidBlockException, TooHighException {
+    public void testDig() throws Exception {
         Tile t = new Tile(new ArrayList<Block>());
         try {
             t.dig();
@@ -196,7 +199,7 @@ public class TileTest {
     }
 
     @Test
-    public void testPlaceBlock() throws TooHighException, InvalidBlockException {
+    public void testPlaceBlock() throws Exception {
         Tile t = new Tile();
         try {
             t.placeBlock(null);
@@ -221,8 +224,7 @@ public class TileTest {
     }
 
     @Test
-    public void testMoveBlock()
-            throws TooHighException, NoExitException, InvalidBlockException {
+    public void testMoveBlock() throws Exception {
         Tile t = new Tile();
 
     }
