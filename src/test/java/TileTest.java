@@ -13,6 +13,10 @@ import org.junit.Test;
  */
 public class TileTest {
 
+    /**
+     * Tests the Tile() constructor. Should initialise with no exits and
+     * soil, soil and grass as starting blocks.
+     */
     @Test
     public void testConstructor1() {
         Tile t = new Tile();
@@ -26,55 +30,39 @@ public class TileTest {
         assertEquals("Initial exits exist.", 0, t.getExits().size());
     }
 
+    /**
+     * Tests the Tile(List<Block>) constructor. Tests it stores the starting
+     * blocks correctly and enforces height limits on blocks correctly.
+     */
     @Test
     public void testConstructor2() throws TooHighException {
-        List<Block> blocks = Arrays.asList(
-            (Block)new SoilBlock(), new WoodBlock());
-        Tile t = new Tile(blocks);
+        List<Block> blocks = new ArrayList<Block>();
+        blocks.add(new GrassBlock());
+        blocks.add(new GrassBlock());
+        blocks.add(new GrassBlock());
+
+        Tile t = new Tile(blocks); // shouldn't throw.
         assertEquals("Incorrect blocks.", blocks, t.getBlocks());
-    }
 
-    @Test
-    public void testConstructor2Throws() {
-        List<Block> startingBlocks = new ArrayList<Block>();
-        startingBlocks.add(new GrassBlock());
-        startingBlocks.add(new GrassBlock());
-        startingBlocks.add(new GrassBlock());
+        blocks.add(new WoodBlock());
+        t = new Tile(blocks); // shouldn't throw.
 
-        Tile t;
+        blocks.remove(blocks.size()-1);
+        blocks.add(new GrassBlock());
         try {
-            t = new Tile(startingBlocks);
-        } catch (TooHighException e) {
-            fail("3 grass blocks threw.");
-        }
-
-        startingBlocks.add(new WoodBlock());
-        try {
-            t = new Tile(startingBlocks);
-        } catch (TooHighException e) {
-            fail("3 grass blocks, 1 wood threw.");
-        }
-
-        startingBlocks.remove(startingBlocks.size()-1);
-        startingBlocks.add(new GrassBlock());
-        try {
-            t = new Tile(startingBlocks);
+            t = new Tile(blocks);
             fail("4 grass (ground) blocks, didn't throw.");
         } catch (TooHighException e) {}
 
-        startingBlocks.remove(startingBlocks.size()-1);
+        blocks.remove(blocks.size()-1);
         for (int i = 0; i < 5; i++) {
-            startingBlocks.add(new WoodBlock());
+            blocks.add(new WoodBlock());
         }
-        try {
-            t = new Tile(startingBlocks);
-        } catch (TooHighException e) {
-            fail("3 grass blocks, 5 wood blocks threw.");
-        }
+        t = new Tile(blocks);
 
-        startingBlocks.add(new WoodBlock());
+        blocks.add(new WoodBlock());
         try {
-            t = new Tile(startingBlocks);
+            t = new Tile(blocks);
             fail("3 grass blocks, 6 wood blocks, didn't throw.");
         } catch (TooHighException e) {}
     }
@@ -214,13 +202,22 @@ public class TileTest {
             t.placeBlock(null);
             fail("Placing null block didn't throw.");
         } catch (InvalidBlockException e) {}
-
         try {
             t.placeBlock(new SoilBlock());
             fail("Placing ground block above height 3 didn't throw.");
         } catch (TooHighException e) {}
 
-
+        for (int i = 0; i < 5; i++) {
+            t.placeBlock(new WoodBlock()); // Could throw, but shouldn't.
+        }
+        try {
+            t.placeBlock(new WoodBlock());
+            fail("Placing normal block above 8 didn't throw.");
+        } catch (TooHighException e) {}
+        try {
+            t.placeBlock((GroundBlock)new SoilBlock());
+            fail("Placing ground block above 8 didn't throw.");
+        } catch (TooHighException e) {}
     }
 
     @Test
