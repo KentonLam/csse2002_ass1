@@ -15,13 +15,13 @@ public class TileTest {
     public void testConstructor1() {
         Tile t = new Tile();
         List<Block> b = t.getBlocks();
-        assertEquals("3 initial blocks.", 3, b.size());
+        assertEquals("Not 3 initial blocks.", 3, b.size());
         // We can't use assertEquals() with a List<Block> because .equals()
         // for Block compares references, not types.
-        assertTrue("First block soil.", b.get(0) instanceof SoilBlock);
-        assertTrue("Second block soil.", b.get(1) instanceof SoilBlock);
-        assertTrue("Third block grass.", b.get(2) instanceof GrassBlock);
-        assertEquals("No initial exits.", 0, t.getExits().size());
+        assertTrue("First block not soil.", b.get(0) instanceof SoilBlock);
+        assertTrue("Second block not soil.", b.get(1) instanceof SoilBlock);
+        assertTrue("Third block not grass.", b.get(2) instanceof GrassBlock);
+        assertEquals("Initial exits exist.", 0, t.getExits().size());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class TileTest {
         } catch (TooHighException e) {
             thrown = true;
         }
-        assertFalse("3 grass blocks.", thrown);
+        assertFalse("3 grass blocks threw.", thrown);
 
         startingBlocks.add(new WoodBlock());
         try {
@@ -46,7 +46,7 @@ public class TileTest {
         } catch (TooHighException e) {
             thrown = true;
         }
-        assertFalse("3 grass blocks, 1 wood.", thrown);
+        assertFalse("3 grass blocks, 1 wood threw.", thrown);
 
         startingBlocks.remove(startingBlocks.size()-1);
         startingBlocks.add(new GrassBlock());
@@ -55,7 +55,7 @@ public class TileTest {
         } catch (TooHighException e) {
             thrown = true;
         }
-        assertTrue("4 grass blocks, should throw.", thrown);
+        assertTrue("4 grass blocks, didn't throw.", thrown);
         thrown = false;
 
         startingBlocks.remove(startingBlocks.size()-1);
@@ -67,8 +67,7 @@ public class TileTest {
         } catch (TooHighException e) {
             thrown = true;
         }
-        assertFalse("3 grass blocks, 5 wood blocks.", thrown);
-
+        assertFalse("3 grass blocks, 5 wood blocks threw.", thrown);
 
         startingBlocks.add(new WoodBlock());
         try {
@@ -76,7 +75,7 @@ public class TileTest {
         } catch (TooHighException e) {
             thrown = true;
         }
-        assertTrue("3 grass blocks, 6 wood blocks, should throw.", thrown);
+        assertTrue("3 grass blocks, 6 wood blocks, didn't throw.", thrown);
     }
 
     @Test
@@ -89,7 +88,7 @@ public class TileTest {
         } catch (NoExitException e) {
             thrown = true;
         }
-        assertTrue("Null exit name should throw.", thrown);
+        assertTrue("Null exit name should throw but didn't.", thrown);
         thrown = false;
 
         try {
@@ -97,17 +96,17 @@ public class TileTest {
         } catch (NoExitException e) {
             thrown = true;
         }
-        assertTrue("Null target tile should throw.", thrown);
+        assertTrue("Null target tile should throw but didn't.", thrown);
         thrown = false;
 
         Tile other = new Tile();
         t.addExit("name", other);
-        assertTrue("Exits contains new exit.", t.getExits().containsKey("name"));
-        assertEquals("New is the correct tile.", other, t.getExits().get("name"));
+        assertTrue("New exit not returned.", t.getExits().containsKey("name"));
+        assertEquals("New exit is the wrong tile.", other, t.getExits().get("name"));
 
         Tile newTarget = new Tile();
         t.addExit("name", newTarget);
-        assertEquals("Target with same name overwritten.",
+        assertEquals("Target with same name not overwritten.",
                      newTarget, t.getExits().get("name"));
 
     }
