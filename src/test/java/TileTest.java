@@ -128,14 +128,10 @@ public class TileTest {
     public void testGetTopBlock() throws TooHighException, TooLowException {
         Tile t = new Tile(new ArrayList<Block>());
 
-        boolean thrown = false;
         try {
             t.getTopBlock();
-        } catch (TooLowException e) {
-            thrown = true;
-        }
-        assertTrue("Get top block of empty tile didn't throw.", thrown);
-        thrown = false;
+            fail("Get top block of empty tile didn't throw.");
+        } catch (TooLowException e) {}
 
         Block top = new WoodBlock();
         t = new Tile(Arrays.asList((Block)new SoilBlock(), top));
@@ -146,14 +142,10 @@ public class TileTest {
     public void testRemoveTopBlock() throws TooLowException, TooHighException {
         Tile t = new Tile(new ArrayList<Block>());
 
-        boolean thrown = false;
         try {
             t.removeTopBlock();
-        } catch (TooLowException e) {
-            thrown = true;
-        }
-        assertTrue("Remove top block of empty tile didn't throw.", thrown);
-        thrown = false;
+            fail("Remove top block of empty tile didn't throw.");
+        } catch (TooLowException e) {}
 
         List<Block> blockList = new ArrayList<Block>();
         blockList.add(new SoilBlock());
@@ -164,8 +156,7 @@ public class TileTest {
         t.removeTopBlock();
         assertEquals(
             "Top block incorrectly removed.",
-            Arrays.asList(bottomBlock),
-            t.getBlocks()
+            Arrays.asList(bottomBlock), t.getBlocks()
         );
     }
 
@@ -175,26 +166,18 @@ public class TileTest {
         t.addExit("up", t);
         t.addExit("right", t);
 
-        boolean thrown = false;
         try {
             t.removeExit(null);
-        } catch (NoExitException e) {
-            thrown = true;
-        }
-        assertTrue("Removing null exit didn't throw.", thrown);
-        thrown = false;
+            fail("Removing null exit didn't throw.");
+        } catch (NoExitException e) {}
 
         try {
             t.removeExit("down");
-        } catch (NoExitException e) {
-            thrown = true;
-        }
-        assertTrue("Removing non-existent exit didn't throw.", thrown);
-        thrown = false;
+            fail("Removing non-existent exit didn't throw.");
+        } catch (NoExitException e) {}
 
         Map<String, Tile> expected = new HashMap<String,Tile>();
         expected.put("right", t);
-
         t.removeExit("up");
         assertEquals("Exit not removed correctly.", expected, t.getExits());
     }
@@ -203,23 +186,16 @@ public class TileTest {
     public void testDig()
             throws TooLowException, InvalidBlockException, TooHighException {
         Tile t = new Tile(new ArrayList<Block>());
-        boolean thrown = false;
         try {
             t.dig();
-        } catch (TooLowException e) {
-            thrown = true;
-        }
-        assertTrue("Digging empty tile didn't throw.", thrown);
-        thrown = false;
+            fail("Digging empty tile didn't throw.");
+        } catch (TooLowException e) {}
 
         t = new Tile(Arrays.asList((Block)new StoneBlock()));
         try {
             t.dig();
-        } catch (InvalidBlockException e) {
-            thrown = true;
-        }
-        assertTrue("Digging undiggable block didn't throw.", thrown);
-        thrown = false;
+            fail("Digging undiggable block didn't throw.");
+        } catch (InvalidBlockException e) {}
 
         List<Block> blocks = Arrays.asList(
             (Block)new WoodBlock(), new SoilBlock());
