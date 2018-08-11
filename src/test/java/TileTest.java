@@ -27,38 +27,32 @@ public class TileTest {
     }
 
     @Test
-    public void testConstructor2() {
+    public void testConstructorThrows() {
         List<Block> startingBlocks = new ArrayList<Block>();
         startingBlocks.add(new GrassBlock());
         startingBlocks.add(new GrassBlock());
         startingBlocks.add(new GrassBlock());
 
-        boolean thrown = false;
         Tile t;
         try {
             t = new Tile(startingBlocks);
         } catch (TooHighException e) {
-            thrown = true;
+            fail("3 grass blocks threw.");
         }
-        assertFalse("3 grass blocks threw.", thrown);
 
         startingBlocks.add(new WoodBlock());
         try {
             t = new Tile(startingBlocks);
         } catch (TooHighException e) {
-            thrown = true;
+            fail("3 grass blocks, 1 wood threw.");
         }
-        assertFalse("3 grass blocks, 1 wood threw.", thrown);
 
         startingBlocks.remove(startingBlocks.size()-1);
         startingBlocks.add(new GrassBlock());
         try {
             t = new Tile(startingBlocks);
-        } catch (TooHighException e) {
-            thrown = true;
-        }
-        assertTrue("4 grass blocks, didn't throw.", thrown);
-        thrown = false;
+            fail("4 grass (ground) blocks, didn't throw.");
+        } catch (TooHighException e) {}
 
         startingBlocks.remove(startingBlocks.size()-1);
         for (int i = 0; i < 5; i++) {
@@ -67,39 +61,29 @@ public class TileTest {
         try {
             t = new Tile(startingBlocks);
         } catch (TooHighException e) {
-            thrown = true;
+            fail("3 grass blocks, 5 wood blocks threw.");
         }
-        assertFalse("3 grass blocks, 5 wood blocks threw.", thrown);
 
         startingBlocks.add(new WoodBlock());
         try {
             t = new Tile(startingBlocks);
-        } catch (TooHighException e) {
-            thrown = true;
-        }
-        assertTrue("3 grass blocks, 6 wood blocks, didn't throw.", thrown);
+            fail("3 grass blocks, 6 wood blocks, didn't throw.");
+        } catch (TooHighException e) {}
     }
 
     @Test
     public void testExits() throws NoExitException {
         Tile t = new Tile();
 
-        boolean thrown = false;
         try {
             t.addExit(null, t);
-        } catch (NoExitException e) {
-            thrown = true;
-        }
-        assertTrue("Null exit name should throw but didn't.", thrown);
-        thrown = false;
+            fail("Null exit name should throw but didn't.");
+        } catch (NoExitException e) {}
 
         try {
             t.addExit("exit name", null);
-        } catch (NoExitException e) {
-            thrown = true;
-        }
-        assertTrue("Null target tile should throw but didn't.", thrown);
-        thrown = false;
+            fail("Null target tile should throw but didn't.");
+        } catch (NoExitException e) {}
 
         Tile other = new Tile();
         t.addExit("name", other);
