@@ -114,7 +114,7 @@ public class Tile implements java.io.Serializable {
      */
     public void removeTopBlock() throws TooLowException {
         this.ensureNonEmpty();
-        this.blocks.remove(0);
+        this.blocks.remove(this.blocks.size()-1);
     }
 
     /**
