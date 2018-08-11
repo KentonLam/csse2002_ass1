@@ -27,7 +27,15 @@ public class TileTest {
     }
 
     @Test
-    public void testConstructorThrows() {
+    public void testConstructor2() throws TooHighException {
+        List<Block> blocks = Arrays.asList(
+            (Block)new SoilBlock(), new WoodBlock());
+        Tile t = new Tile(blocks);
+        assertEquals("Incorrect blocks.", blocks, t.getBlocks());
+    }
+
+    @Test
+    public void testConstructor2Throws() {
         List<Block> startingBlocks = new ArrayList<Block>();
         startingBlocks.add(new GrassBlock());
         startingBlocks.add(new GrassBlock());
