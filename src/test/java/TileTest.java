@@ -77,5 +77,39 @@ public class TileTest {
             thrown = true;
         }
         assertTrue("3 grass blocks, 6 wood blocks, should throw.", thrown);
-    }    
+    }
+
+    @Test
+    public void testExits() throws NoExitException {
+        Tile t = new Tile();
+
+        boolean thrown = false;
+        try {
+            t.addExit(null, t);
+        } catch (NoExitException e) {
+            thrown = true;
+        }
+        assertTrue("Null exit name should throw.", thrown);
+        thrown = false;
+
+        try {
+            t.addExit("exit name", null);
+        } catch (NoExitException e) {
+            thrown = true;
+        }
+        assertTrue("Null target tile should throw.", thrown);
+        thrown = false;
+
+        Tile other = new Tile();
+        t.addExit("name", other);
+        assertTrue("Exits contains new exit.", t.getExits().containsKey("name"));
+        assertEquals("New is the correct tile.", other, t.getExits().get("name"));
+
+        Tile newTarget = new Tile();
+        t.addExit("name", newTarget);
+        assertEquals("Target with same name overwritten.",
+                     newTarget, t.getExits().get("name"));
+
+    }
+
 }
