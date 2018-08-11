@@ -172,6 +172,7 @@ public class Tile implements java.io.Serializable {
         Block topBlock = this.getTopBlock();
         if (!topBlock.isDiggable())
             throw new InvalidBlockException();
+        this.removeTopBlock();
         return topBlock;
     }
 
@@ -222,8 +223,6 @@ public class Tile implements java.io.Serializable {
             // must be < our height, it will always be valid for our top block.
             throw new AssertionError(e);
         }
-
-
     }
 
     /**
