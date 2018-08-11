@@ -63,6 +63,7 @@ public class Tile implements java.io.Serializable {
             } catch (InvalidBlockException e) {
                 // By assumption, the elements of startingBlocks are non-null.
                 // Only here because this constructor can't throw invalid block.
+                throw new AssertionError(e);
             }
         }
     }
