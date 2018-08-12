@@ -143,9 +143,8 @@ public class TileTest {
             fail("Remove top block of empty tile didn't throw.");
         } catch (TooLowException e) {}
 
-        List<Block> blockList = new ArrayList<Block>();
-        blockList.add(new SoilBlock());
-        blockList.add(new WoodBlock());
+        List<Block> blockList = Arrays.asList(
+            (Block)new SoilBlock(), new GrassBlock());
 
         Block bottomBlock = blockList.get(0);
         t = new Tile(blockList);
@@ -186,7 +185,8 @@ public class TileTest {
             fail("Digging empty tile didn't throw.");
         } catch (TooLowException e) {}
 
-        t = new Tile(Arrays.asList((Block)new StoneBlock()));
+        t = new Tile();
+        t.placeBlock(new StoneBlock());
         try {
             t.dig();
             fail("Digging undiggable block didn't throw.");
@@ -225,11 +225,64 @@ public class TileTest {
             t.placeBlock((GroundBlock)new SoilBlock());
             fail("Placing ground block above 8 didn't throw.");
         } catch (TooHighException e) {}
+
+        Block startingBlock = new StoneBlock();
+        t = new Tile(Arrays.asList(startingBlock));
+
+        Block newBlock = new WoodBlock();
+        t.placeBlock(newBlock);
+        assertEquals(
+            "Block not placed correctly.",
+            Arrays.asList(startingBlock, newBlock), t.getBlocks());
     }
 
     @Test
     public void testMoveBlock() throws Exception {
-        Tile t = new Tile();
+        Tile tile = new Tile();
+        Tile otherTile = new Tile();
+
+        try {
+            tile.moveBlock("non-existent");
+            fail("Moving via non-existent exit didn't throw.");
+        } catch (NoExitException e) {}
+
+        try {
+            tile.moveBlock(null);
+            fail("Moving via null exit didn't throw.");
+        } catch (NoExitException e) {}
+
+        tile.addExit("test exit", otherTile);
+
+        tile.placeBlock(new StoneBlock());
+        try {
+            tile.moveBlock("test exit");
+            fail("Moving unmoveable block didn't throw.");
+        } catch (InvalidBlockException e) {}
+
+        Block blockToMove = new WoodBlock();
+        tile.placeBlock(blockToMove);
+        otherTile.placeBlock(new StoneBlock());
+        tile.moveBlock("test exit"); // otherTile is 1 height lower here.
+        assertNotEquals(
+            "Block not moved from original tile.",
+            blockToMove, tile.getTopBlock());
+        assertEquals(
+            "Block placed on new tile.",
+            blockToMove, otherTile.getTopBlock());
+
+        otherTile.placeBlock(new StoneBlock());
+        try {
+            tile.moveBlock("test exit");
+            fail("Moving to equal height tile didn't throw.");
+        } catch (TooHighException e) {}
+
+        tile = new Tile(new ArrayList<Block>());
+        otherTile = new Tile(new ArrayList<Block>());
+        tile.addExit("test 2", otherTile);
+        try {
+            tile.moveBlock("test 2");
+            fail("Moving from empty tile to empty tile didn't throw.");
+        } catch (TooHighException e) {}
 
     }
 }
