@@ -10,10 +10,10 @@ import java.util.Map;
  */
 public class Tile implements java.io.Serializable {
 
-    private List<Block> blocks = new ArrayList<Block>();
-    private Map<String, Tile> exits = new HashMap<String, Tile>();
-    private int MAX_BLOCK_HEIGHT = 8;
-    private int MAX_GROUND_HEIGHT = 3;
+    private final List<Block> blocks = new ArrayList<Block>();
+    private final Map<String, Tile> exits = new HashMap<String, Tile>();
+    private static final int MAX_BLOCK_HEIGHT = 8;
+    private static final int MAX_GROUND_HEIGHT = 3;
 
     /**
      * Construct a new tile.<br/>
