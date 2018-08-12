@@ -2,13 +2,4 @@
  * Exit does not exist
  *
  */
-public class NoExitException extends BlockWorldException {
-
-    /**
-     * 
-     *
-     */
-    public NoExitException() {
-    }
-
-}
+public class NoExitException extends BlockWorldException {}

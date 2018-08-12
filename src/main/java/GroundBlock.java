@@ -5,15 +5,8 @@
 public abstract class GroundBlock implements Block {
 
     /**
-     * 
-     *
-     */
-    public GroundBlock() {
-    }
-
-    /**
      * Is the GroundBlock moveable? GroundBlocks enforce not moving
-     * 
+     *
      * @return false
      */
     public final boolean isMoveable() {
@@ -22,7 +15,7 @@ public abstract class GroundBlock implements Block {
 
     /**
      * Is the GroundBlock diggable? GroundBlocks enforce allowing digging
-     * 
+     *
      * @return true
      */
     public final boolean isDiggable() {

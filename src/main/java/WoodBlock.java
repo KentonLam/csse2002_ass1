@@ -5,16 +5,9 @@
 public class WoodBlock implements Block {
 
     /**
-     * 
-     *
-     */
-    public WoodBlock() {
-    }
-
-    /**
      * Get the colour of a WoodBlock. <br/>
      * Always returns "brown"
-     * 
+     *
      * @return "brown"
      */
     public String getColour() {
@@ -24,7 +17,7 @@ public class WoodBlock implements Block {
     /**
      * Get the type of a WoodBlock <br/>
      * Always returns "wood"
-     * 
+     *
      * @return "wood"
      */
     public String getBlockType() {
@@ -34,7 +27,7 @@ public class WoodBlock implements Block {
     /**
      * A woodblock is diggable <br/>
      * Always returns true
-     * 
+     *
      * @return true
      */
     public boolean isDiggable() {
@@ -44,7 +37,7 @@ public class WoodBlock implements Block {
     /**
      * A woodblock is carryable <br/>
      * Always returns true
-     * 
+     *
      * @return true
      */
     public boolean isCarryable() {
@@ -54,7 +47,7 @@ public class WoodBlock implements Block {
     /**
      * A woodblock is moveable <br/>
      * Always returns true
-     * 
+     *
      * @return true
      */
     public boolean isMoveable() {

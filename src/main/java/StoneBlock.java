@@ -5,16 +5,9 @@
 public class StoneBlock implements Block {
 
     /**
-     * 
-     *
-     */
-    public StoneBlock() {
-    }
-
-    /**
      * Get the colour of a StoneBlock <br/>
      * Always returns "gray"
-     * 
+     *
      * @return "gray"
      */
     public String getColour() {
@@ -24,7 +17,7 @@ public class StoneBlock implements Block {
     /**
      * Get the type of a StoneBlock <br/>
      * Always returns "stone"
-     * 
+     *
      * @return "stone"
      */
     public String getBlockType() {
@@ -34,7 +27,7 @@ public class StoneBlock implements Block {
     /**
      * StoneBlocks are not diggable <br/>
      * Always returns false
-     * 
+     *
      * @return false
      */
     public boolean isDiggable() {
@@ -44,7 +37,7 @@ public class StoneBlock implements Block {
     /**
      * StoneBlocks are not moveable <br/>
      * Always returns false
-     * 
+     *
      * @return false
      */
     public boolean isMoveable() {
@@ -54,7 +47,7 @@ public class StoneBlock implements Block {
     /**
      * StoneBlocks are not carryable <br/>
      * Always returns false
-     * 
+     *
      * @return false
      */
     public boolean isCarryable() {
