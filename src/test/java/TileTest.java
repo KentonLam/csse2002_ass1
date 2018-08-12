@@ -36,7 +36,7 @@ public class TileTest {
      */
     @Test
     public void testConstructor2() throws Exception {
-        // Often in these test cases, there is code which could throw but
+        // Often in these test methods, there is code which could throw but
         // shouldn't. Such code is included bare in a test method which
         // throws Exception. Any exception outside a try/catch fails the test.
 
@@ -48,8 +48,12 @@ public class TileTest {
         Tile t = new Tile(blocks); // Testing 3 starting ground blocks.
         assertEquals("Incorrect blocks.", blocks, t.getBlocks());
 
-        blocks.add(new WoodBlock()); // Testing 3 ground blocks, 1 non-ground.
-        t = new Tile(blocks);
+        blocks.add(new WoodBlock());
+        // Modifying the parameter list should not affect the tile's blocks.
+        assertEquals("Modifying list modified tile's blocks.",
+            3, t.getBlocks().size());
+
+        t = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
 
         blocks.remove(blocks.size()-1);
         blocks.add(new GrassBlock());
