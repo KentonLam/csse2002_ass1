@@ -1,44 +1,41 @@
 /**
- * An interface for a block
+ * An interface describing functionality of a block.
  *
  */
 public interface Block {
 
     /**
-     * Get the colour of a block
-     * 
-     * @return the name of a colour
+     * Gets the colour of a block.
+     *
+     * @return colour as a string.
      */
     String getColour();
 
     /**
-     * Get the type of a block
-     * 
-     * @return the name of a block type (see subclasses)
+     * Gets the type of a block.
+     *
+     * @return type of block as a string (see subclasses).
      */
     String getBlockType();
 
     /**
-     * Is the block diggable? <br/>
-     * If so the block can be removed.
-     * 
-     * @return true if diggable, false if not
+     * Whether the block is diggable.
+     *
+     * @return true if diggable, false if not.
      */
     boolean isDiggable();
 
     /**
-     * Is the block moveable? <br/>
-     * If so, the block can be shifted to adjacent tiles.
-     * 
-     * @return true if moveable, false if not
+     * Whether the block can be moved.
+     *
+     * @return true if moveable, false if not.
      */
     boolean isMoveable();
 
     /**
-     * Is the block carryable? <br/>
-     * If so, the block can be added to the Builder's inventory.
-     * 
-     * @return true if carryable, false if not
+     * Whether the block can be carryed in the inventory.
+     *
+     * @return true if carryable, false if not.
      */
     boolean isCarryable();
 
