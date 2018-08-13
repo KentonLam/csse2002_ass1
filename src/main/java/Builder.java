@@ -164,7 +164,7 @@ public class Builder {
             return false;
         }
 
-        // The tile can be reached. In this case, it can be entered if
+        // There is an exit to newTile. In this case, it can be entered if
         // the height difference is <= 1.
         int newHeight = newTile.getBlocks().size();
         int currentHeight = this.currentTile.getBlocks().size();
