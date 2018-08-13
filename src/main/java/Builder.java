@@ -80,8 +80,8 @@ public class Builder {
     /**
      * Places a block from the inventory on the top of the current tile.
      *
-     * Blocks can only be placed on tiles with less than 8 blocks, or tiles with
-     * less than 3 blocks if the block is a ground block.
+     * <p> Blocks can only be placed on tiles with less than 8 blocks,
+     * or tiles with less than 3 blocks if the block is a ground block.
      *
      * <ul>
      * <li> If the inventoryIndex is &lt; 0 or ≥ the inventory size, throw
@@ -119,10 +119,10 @@ public class Builder {
      * Attempt to dig on the current tile and add the dug block to our
      * inventory.
      *
-     * If the top block is diggable, removes it from the tile. Then, if it is
-     * carryable, adds it to the inventory.
+     * <p> If the top block is diggable, removes it from the tile. Then, if it
+     * is carryable, adds it to the inventory.
      *
-     * Handles the following cases:
+     * <p> Handles the following cases:
      * <ul>
      * <li> If there are no blocks on the current tile, throw a TooLowException.</li>
      * <li> If the top block is not diggable, throw an InvalidBlockException.</li>
@@ -140,19 +140,19 @@ public class Builder {
     }
 
     /**
-     * Check if the Builder can enter a tile from the current tile. <br/>
-     * Returns true if:
-     * <ol>
-     * <li>the tiles are connected via an exit (i.e. there is an exit from the
-     * current tile to the new tile), and</li>
-     * <li>the height of the new tile (number of blocks) is the same or different by
-     * 1 from the current tile (i.e. abs(current tile height - new tile) &lt;= 1)
-     * </li>
-     * </ol>
+     * Checks if this builder can enter a tile from its current tile.
+     *
+     * <p>  Returns true if:
+     * <ul>
+     * <li> there is an exit from the current tile to the new tile, and</li>
+     * <li> the height of the new tile is at most 1 block above or below this
+     *      tile.</li>
+     * </ul>
+     *
      * If newTile is null return false.
      *
-     * @param newTile the tile to test if we can enter
-     * @return true if the tile can be entered
+     * @param newTile the tile to test if we can enter.
+     * @return true if the tile can be entered.
      */
     public boolean canEnter(Tile newTile) {
         if (newTile == null)
@@ -176,13 +176,14 @@ public class Builder {
     }
 
     /**
-     * move the builder to a new tile. <br/>
-     * If canEnter(newTile) == true then change the builders current tile to be
-     * newTile. (i.e. getCurrentTile() == newTile) <br/>
-     * If canEnter(newTile) == false then throw a NoExitException.
+     * Moves the builder to a new tile. The new tile must be reachable from
+     * the current tile (i.e. canEnter(newTile) == true).
      *
-     * @param newTile the tile to move to
-     * @throws NoExitException if canEnter(newTile) == false
+     * <p> Throws NoExitException if it is impossible to move to newTile
+     * from the current tile.
+     *
+     * @param newTile the tile to move to.
+     * @throws NoExitException if moving to newTile is impossible.
      */
     public void moveTo(Tile newTile) throws NoExitException {
         if (!this.canEnter(newTile))
