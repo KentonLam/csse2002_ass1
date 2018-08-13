@@ -155,24 +155,20 @@ public class Builder {
      * @return true if the tile can be entered.
      */
     public boolean canEnter(Tile newTile) {
+        // Special case for null tile.
         if (newTile == null)
             return false;
-        boolean canEnter = false;
-        for (Tile tile : this.currentTile.getExits().values()) {
-            if (tile.equals(newTile)) {
-                int newHeight = tile.getBlocks().size();
-                int currentHeight = this.currentTile.getBlocks().size();
 
-                if (Math.abs(newHeight - currentHeight) <= 1) {
-                    canEnter = true;
-                    break;
-                }
-
-                // We could break here, but it is not guaranteed that there is
-                // only one exit to a particular tile.
-            }
+        // If there is no exit to newTile, it cannot be entered.
+        if (!this.currentTile.getExits().values().contains(newTile)) {
+            return false;
         }
-        return canEnter;
+
+        // The tile can be reached. In this case, it can be entered if
+        // the height difference is <= 1.
+        int newHeight = newTile.getBlocks().size();
+        int currentHeight = this.currentTile.getBlocks().size();
+        return Math.abs(newHeight - currentHeight) <= 1;
     }
 
     /**
