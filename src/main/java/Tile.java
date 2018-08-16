@@ -89,8 +89,9 @@ public class Tile implements java.io.Serializable {
     }
 
     private void ensureNonEmpty() throws TooLowException {
-        if (this.blocks.size() <= 0)
+        if (this.blocks.size() <= 0) {
             throw new TooLowException();
+        }
     }
 
     /**
@@ -127,8 +128,9 @@ public class Tile implements java.io.Serializable {
      * @throws NoExitException if name or target is null
      */
     public void addExit(String name, Tile target) throws NoExitException {
-        if (name == null || target == null)
+        if (name == null || target == null) {
             throw new NoExitException();
+        }
         this.exits.put(name, target);
     }
 
@@ -148,8 +150,9 @@ public class Tile implements java.io.Serializable {
 
     private void ensureCanExit(String exitName) throws NoExitException {
         if (exitName == null || !this.exits.containsKey(exitName)
-                || this.exits.get(exitName) == null)
+                || this.exits.get(exitName) == null) {
             throw new NoExitException();
+        }
     }
 
     /**
@@ -169,8 +172,9 @@ public class Tile implements java.io.Serializable {
     public Block dig() throws TooLowException, InvalidBlockException {
         this.ensureNonEmpty();
         Block topBlock = this.getTopBlock();
-        if (!topBlock.isDiggable())
+        if (!topBlock.isDiggable()) {
             throw new InvalidBlockException();
+        }
         this.removeTopBlock();
         return topBlock;
     }
@@ -199,12 +203,14 @@ public class Tile implements java.io.Serializable {
         this.ensureCanExit(exitName);
 
         Tile newTile = this.exits.get(exitName);
-        if (newTile.getBlocks().size() >= this.blocks.size())
+        if (newTile.getBlocks().size() >= this.blocks.size()) {
             throw new TooHighException();
+        }
 
         try {
-            if (!this.getTopBlock().isMoveable())
+            if (!this.getTopBlock().isMoveable()) {
                 throw new InvalidBlockException();
+            }
         } catch (TooLowException e) {
             // This should never happen because if our height is 0, it is
             // necessarily <= any other tile's height and we would have thrown
@@ -244,12 +250,14 @@ public class Tile implements java.io.Serializable {
     public void placeBlock(Block block)
             throws TooHighException, InvalidBlockException {
 
-        if (block == null)
+        if (block == null) {
             throw new InvalidBlockException();
+        }
         int maxHeight = (block instanceof GroundBlock
             ? MAX_GROUND_HEIGHT : MAX_BLOCK_HEIGHT);
-        if (this.blocks.size() >= maxHeight)
+        if (this.blocks.size() >= maxHeight) {
             throw new TooHighException();
+        }
         this.blocks.add(block);
     }
 
