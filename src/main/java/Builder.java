@@ -43,8 +43,9 @@ public class Builder {
             List<Block> startingInventory) throws InvalidBlockException {
         this(name, startingTile);
         for (Block b : startingInventory) {
-            if (!b.isCarryable())
+            if (!b.isCarryable()) {
                 throw new InvalidBlockException();
+            }
         }
         this.inventory = startingInventory;
     }
@@ -105,8 +106,9 @@ public class Builder {
 
         // Check index is within bounds of inventory size.
         int inventorySize = inventory.size();
-        if (inventoryIndex < 0 || inventoryIndex >= inventorySize)
+        if (inventoryIndex < 0 || inventoryIndex >= inventorySize) {
             throw new InvalidBlockException();
+        }
 
         // Place the block and remove it from our inventory.
         Block block = inventory.get(inventoryIndex);
@@ -138,8 +140,9 @@ public class Builder {
         throws TooLowException, InvalidBlockException {
         // .dig() throws appropriately.
         Block dugBlock = this.currentTile.dig();
-        if (dugBlock.isCarryable())
+        if (dugBlock.isCarryable()) {
             this.inventory.add(dugBlock);
+        }
     }
 
     /**
@@ -159,8 +162,9 @@ public class Builder {
      */
     public boolean canEnter(Tile newTile) {
         // Special case for null tile.
-        if (newTile == null)
+        if (newTile == null) {
             return false;
+        }
 
         // If there is no exit to newTile, it cannot be entered.
         if (!this.currentTile.getExits().values().contains(newTile)) {
@@ -185,10 +189,10 @@ public class Builder {
      * @throws NoExitException if moving to newTile is impossible.
      */
     public void moveTo(Tile newTile) throws NoExitException {
-        if (!this.canEnter(newTile))
+        if (!this.canEnter(newTile)) {
             throw new NoExitException();
-        else
+        } else {
             this.currentTile = newTile;
+        }
     }
-
 }
