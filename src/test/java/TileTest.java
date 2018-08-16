@@ -64,17 +64,15 @@ public class TileTest {
         Assert.assertEquals("Modifying list modified tile's blocks.",
             3, t.getBlocks().size());
 
-        blocks.add(new WoodBlock());
         t = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
 
-        blocks.remove(blocks.size()-1);
-        blocks.add(new GrassBlock());
+        blocks = makeBlockList(GrassBlock.class, 4);
         try {
             t = new Tile(blocks);
             Assert.fail("4 grass (ground) blocks, didn't throw.");
         } catch (TooHighException e) {}
 
-        blocks.remove(blocks.size()-1);
+        blocks = makeBlockList(GrassBlock.class, 3);
         for (int i = 0; i < 5; i++) {
             blocks.add(new WoodBlock());
         }
