@@ -225,25 +225,19 @@ public class TileTest {
         } catch (TooHighException e) {}
 
         for (int i = 0; i < 5; i++) {
-            t.placeBlock(new WoodBlock()); // Could throw, but shouldn't.
+            Block topBlock = new WoodBlock();
+            t.placeBlock(topBlock); // Could throw, but shouldn't.
+            assertEquals("Block not placed on top.",
+                topBlock, t.getTopBlock());
         }
         try {
             t.placeBlock(new WoodBlock());
             fail("Placing normal block above 8 didn't throw.");
         } catch (TooHighException e) {}
         try {
-            t.placeBlock((GroundBlock)new SoilBlock());
+            t.placeBlock(new SoilBlock());
             fail("Placing ground block above 8 didn't throw.");
         } catch (TooHighException e) {}
-
-        Block startingBlock = new StoneBlock();
-        t = new Tile(Arrays.asList(startingBlock));
-
-        Block newBlock = new WoodBlock();
-        t.placeBlock(newBlock);
-        assertEquals(
-            "Block not placed correctly.",
-            Arrays.asList(startingBlock, newBlock), t.getBlocks());
     }
 
     @Test
@@ -273,6 +267,7 @@ public class TileTest {
         tile.placeBlock(blockToMove);
         otherTile.placeBlock(new StoneBlock());
         tile.moveBlock("test exit"); // otherTile is 1 height lower here.
+
         assertNotEquals(
             "Block not moved from original tile.",
             blockToMove, tile.getTopBlock());
@@ -293,6 +288,5 @@ public class TileTest {
             tile.moveBlock("test 2");
             fail("Moving from empty tile to empty tile didn't throw.");
         } catch (TooHighException e) {}
-
     }
 }
