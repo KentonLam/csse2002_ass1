@@ -57,58 +57,21 @@ public class TileTest {
 
         Tile t = new Tile(blocks); // Testing 3 starting ground blocks.
         assertEquals("Incorrect blocks.", blocks, t.getBlocks());
-<<<<<<< HEAD
-    }
-
-    @Test
-    public void testModifyStartingBlocks() throws Exception {
-        List<Block> b = makeBlockList(WoodBlock.class, 3);
-        Tile t = new Tile(b);
-        b.add(new WoodBlock());
-=======
 
         blocks.add(new WoodBlock());
->>>>>>> parent of 3a7e89c... Split into separate functions for each test.
         // Modifying the parameter list should not affect the tile's blocks.
         assertEquals("Modifying list modified tile's blocks.",
             3, t.getBlocks().size());
 
-<<<<<<< HEAD
-    @Test
-    public void test4StartingBlocks() throws Exception {
-        List<Block> blocks = makeBlockList(SoilBlock.class, 3);
-        blocks.add(new WoodBlock());
-        Tile t = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
-    }
-
-    @Test
-    public void test4StartingGroundBlocks() throws Exception {
-        List<Block> blocks = makeBlockList(GrassBlock.class, 4);
-=======
         t = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
 
         blocks.remove(blocks.size()-1);
         blocks.add(new GrassBlock());
->>>>>>> parent of 3a7e89c... Split into separate functions for each test.
         try {
             t = new Tile(blocks);
             fail("4 grass (ground) blocks, didn't throw.");
         } catch (TooHighException e) {}
 
-<<<<<<< HEAD
-    @Test
-    public void test8StartingBlocks() throws Exception {
-        List<Block> blocks = makeBlockList(WoodBlock.class, 8);
-        Tile t = new Tile(blocks); // Tests 8 non-ground.
-    }
-
-    @Test
-    public void test9StartingBlocks() throws Exception {
-        List<Block> blocks = makeBlockList(WoodBlock.class, 9);
-        try {
-            Tile t = new Tile(blocks);
-            fail("9 wood blocks, didn't throw.");
-=======
         blocks.remove(blocks.size()-1);
         for (int i = 0; i < 5; i++) {
             blocks.add(new WoodBlock());
@@ -119,7 +82,6 @@ public class TileTest {
         try {
             t = new Tile(blocks);
             fail("3 grass blocks, 6 wood blocks, didn't throw.");
->>>>>>> parent of 3a7e89c... Split into separate functions for each test.
         } catch (TooHighException e) {}
     }
 
