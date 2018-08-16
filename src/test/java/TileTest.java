@@ -101,35 +101,39 @@ public class TileTest {
     }
 
     @Test
-    public void testExits() throws Exception {
-        Tile t = new Tile();
-
+    public void testAddExitNullName() throws Exception {
         try {
-            t.addExit(null, t);
+            new Tile().addExit(null, new Tile());
             fail("Null exit name should throw but didn't.");
         } catch (NoExitException e) {}
-
-        try {
-            t.addExit("exit name", null);
-            fail("Null target tile should throw but didn't.");
-        } catch (NoExitException e) {}
-
-        Tile other = new Tile();
-        t.addExit("name", other);
-        assertTrue("New exit not stored.", t.getExits().containsKey("name"));
-        assertEquals("New exit is the wrong tile.", other, t.getExits().get("name"));
-
-        Tile newTarget = new Tile();
-        t.addExit("name", newTarget);
-        assertEquals("Target with same name not overwritten.",
-                     newTarget, t.getExits().get("name"));
     }
 
     @Test
-    public void testGetBlocks() throws Exception {
-        List<Block> b = Arrays.asList((Block)new SoilBlock(), new WoodBlock());
-        Tile t = new Tile(b);
-        assertEquals("Incorrect blocks.", b, t.getBlocks());
+    public void testAddExitNullTarget() throws Exception {
+        try {
+            new Tile().addExit("exit name", null);
+            fail("Null target tile should throw but didn't.");
+        } catch (NoExitException e) {}
+    }
+
+    @Test
+    public void testAddExitNormal() throws Exception {
+        Tile t = new Tile();
+        Tile other = new Tile();
+
+        t.addExit("name", other);
+        assertTrue("New exit not stored.", t.getExits().containsKey("name"));
+        assertEquals("New exit is the wrong tile.", other, t.getExits().get("name"));
+    }
+
+    @Test
+    public void testAddExitOverwrite() throws Exception {
+        Tile t = new Tile();
+        Tile newTarget = new Tile();
+        t.addExit("name", new Tile());
+        t.addExit("name", newTarget);
+        assertEquals("Target with same name not overwritten.",
+                     newTarget, t.getExits().get("name"));
     }
 
     @Test
@@ -146,33 +150,38 @@ public class TileTest {
     }
 
     @Test
-    public void testGetTopBlock() throws Exception {
+    public void testGetTopBlockEmptyTile() throws Exception {
         Tile t = new Tile(new ArrayList<Block>());
-
         try {
             t.getTopBlock();
             fail("Get top block of empty tile didn't throw.");
         } catch (TooLowException e) {}
+    }
 
+    @Test
+    public void testGetTopBlockNormal() throws Exception {
         Block top = new WoodBlock();
-        t = new Tile(Arrays.asList((Block)new SoilBlock(), top));
+
+        Tile t = new Tile(Arrays.asList((Block)new SoilBlock(), top));
         assertEquals("Incorrect top block.", top, t.getTopBlock());
     }
 
     @Test
-    public void testRemoveTopBlock() throws Exception {
+    public void testRemoveTopBlockEmptyTile() throws Exception {
         Tile t = new Tile(new ArrayList<Block>());
-
         try {
             t.removeTopBlock();
             fail("Remove top block of empty tile didn't throw.");
         } catch (TooLowException e) {}
+    }
 
+    @Test
+    public void testRemoveTopBlockNormal() throws Exception {
         List<Block> blockList = Arrays.asList(
             (Block)new SoilBlock(), new GrassBlock());
 
         Block bottomBlock = blockList.get(0);
-        t = new Tile(blockList);
+        Tile t = new Tile(blockList);
         t.removeTopBlock();
         assertEquals(
             "Top block incorrectly removed.",
