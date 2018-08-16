@@ -36,8 +36,8 @@ public class TileTest {
 
         Assert.assertEquals(
             "Not 3 initial blocks.", 3, b.size());
-        // We can't use Assert.assertEquals() with a List<Block> because .equals()
-        // for Block compares references, not types.
+        // We can't use Assert.assertEquals() with a List<Block> because
+        // .equals() for Block compares references, not types.
         Assert.assertTrue(
             "First block not soil.", b.get(0) instanceof SoilBlock);
         Assert.assertTrue(

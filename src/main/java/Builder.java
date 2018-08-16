@@ -16,7 +16,7 @@ public class Builder {
     private String name;
 
     /**
-     * Creates a builder with the specified name and starting on the given tile.
+     * Creates a builder with a given name and starting on the given tile.
      *
      * @param name         name of the builder, cannot be null.
      * @param startingTile the tile the builder starts in, cannot be null.
@@ -39,8 +39,8 @@ public class Builder {
      * @throws InvalidBlockException if any block in startingInventory is
      *                               not carryable.
      */
-    public Builder(String name, Tile startingTile, List<Block> startingInventory)
-            throws InvalidBlockException {
+    public Builder(String name, Tile startingTile,
+            List<Block> startingInventory) throws InvalidBlockException {
         this(name, startingTile);
         for (Block b : startingInventory) {
             if (!b.isCarryable())
@@ -87,17 +87,17 @@ public class Builder {
      *      an InvalidBlockException.</li>
      * <li> If there are 8 or more blocks on the current tile, throw a
      *      TooHighException.</li>
-     * <li> If there are 3 or more blocks on the current tile and the inventory
+     * <li> If there are 3 or more blocks on the current tile and the indexed
      *      block is a ground block, throw a TooHighException.</li>
      * </ul>
      *
      * @param inventoryIndex the index in the inventory to place.
-     * @throws InvalidBlockException if the inventoryIndex is out of the inventory
-     *                               range.
+     * @throws InvalidBlockException if the inventoryIndex is out of the
+     *                               inventory's range.
      * @throws TooHighException      if there are 8 blocks on the current tile
      *                               already, or the block is an instance of
-     *                               GroundBlock and there are already 3 blocks on
-     *                               the current tile.
+     *                               GroundBlock and there are already 3
+     *                               blocks on the current tile.
      */
     public void dropFromInventory(int inventoryIndex)
             throws InvalidBlockException, TooHighException {
@@ -123,17 +123,21 @@ public class Builder {
      *
      * <p> Handles the following cases:
      * <ul>
-     * <li> If there are no blocks on the current tile, throw a TooLowException.</li>
-     * <li> If the top block is not diggable, throw an InvalidBlockException.</li>
-     * <li> If the top block is not carryable, remove the block but do not add it
-     *      to the inventory.</li>
+     * <li> If there are no blocks on the current tile, throw a
+     *      TooLowException. </li>
+     * <li> If the top block is not diggable, throw an InvalidBlockException.
+     *      </li>
+     * <li> If the top block is not carryable, remove the block but do not add
+     *      it to the inventory. </li>
      * </ul>
      *
-     * @throws TooLowException       if there are no blocks on the current tile.
+     * @throws TooLowException       if there are no blocks on this tile.
      * @throws InvalidBlockException if the top block is not diggable
      */
-    public void digOnCurrentTile() throws TooLowException, InvalidBlockException {
-        Block dugBlock = this.currentTile.dig(); // This throws appropriately.
+    public void digOnCurrentTile()
+        throws TooLowException, InvalidBlockException {
+        // .dig() throws appropriately.
+        Block dugBlock = this.currentTile.dig();
         if (dugBlock.isCarryable())
             this.inventory.add(dugBlock);
     }
