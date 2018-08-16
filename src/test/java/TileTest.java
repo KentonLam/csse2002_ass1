@@ -31,7 +31,7 @@ public class TileTest {
      * soil, soil and grass as starting blocks.
      */
     @Test
-    public void testConstructorWithNoArgs() {
+    public void testConstructor1() {
         Tile t = new Tile();
         List<Block> b = t.getBlocks();
         assertEquals("Not 3 initial blocks.", 3, b.size());
@@ -48,7 +48,7 @@ public class TileTest {
      * blocks correctly and enforces height limits on blocks correctly.
      */
     @Test
-    public void test3StartingBlocks() throws Exception {
+    public void testConstructor2() throws Exception {
         // Often in these test methods, there is code which could throw but
         // shouldn't. Such code is included bare in a test method which
         // throws Exception. Any exception outside a try/catch fails the test.
@@ -57,6 +57,7 @@ public class TileTest {
 
         Tile t = new Tile(blocks); // Testing 3 starting ground blocks.
         assertEquals("Incorrect blocks.", blocks, t.getBlocks());
+<<<<<<< HEAD
     }
 
     @Test
@@ -64,11 +65,15 @@ public class TileTest {
         List<Block> b = makeBlockList(WoodBlock.class, 3);
         Tile t = new Tile(b);
         b.add(new WoodBlock());
+=======
+
+        blocks.add(new WoodBlock());
+>>>>>>> parent of 3a7e89c... Split into separate functions for each test.
         // Modifying the parameter list should not affect the tile's blocks.
         assertEquals("Modifying list modified tile's blocks.",
             3, t.getBlocks().size());
-    }
 
+<<<<<<< HEAD
     @Test
     public void test4StartingBlocks() throws Exception {
         List<Block> blocks = makeBlockList(SoilBlock.class, 3);
@@ -79,12 +84,18 @@ public class TileTest {
     @Test
     public void test4StartingGroundBlocks() throws Exception {
         List<Block> blocks = makeBlockList(GrassBlock.class, 4);
+=======
+        t = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
+
+        blocks.remove(blocks.size()-1);
+        blocks.add(new GrassBlock());
+>>>>>>> parent of 3a7e89c... Split into separate functions for each test.
         try {
-            Tile t = new Tile(blocks);
+            t = new Tile(blocks);
             fail("4 grass (ground) blocks, didn't throw.");
         } catch (TooHighException e) {}
-    }
 
+<<<<<<< HEAD
     @Test
     public void test8StartingBlocks() throws Exception {
         List<Block> blocks = makeBlockList(WoodBlock.class, 8);
@@ -97,6 +108,18 @@ public class TileTest {
         try {
             Tile t = new Tile(blocks);
             fail("9 wood blocks, didn't throw.");
+=======
+        blocks.remove(blocks.size()-1);
+        for (int i = 0; i < 5; i++) {
+            blocks.add(new WoodBlock());
+        }
+        t = new Tile(blocks); // Tests 3 ground blocks and 5 non-ground.
+
+        blocks.add(new WoodBlock());
+        try {
+            t = new Tile(blocks);
+            fail("3 grass blocks, 6 wood blocks, didn't throw.");
+>>>>>>> parent of 3a7e89c... Split into separate functions for each test.
         } catch (TooHighException e) {}
     }
 
