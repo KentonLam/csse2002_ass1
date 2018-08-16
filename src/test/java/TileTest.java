@@ -18,7 +18,7 @@ public class TileTest {
      * soil, soil and grass as starting blocks.
      */
     @Test
-    public void testConstructor1() {
+    public void testConstructorWithNoArgs() {
         Tile t = new Tile();
         List<Block> b = t.getBlocks();
         assertEquals("Not 3 initial blocks.", 3, b.size());
@@ -35,7 +35,7 @@ public class TileTest {
      * blocks correctly and enforces height limits on blocks correctly.
      */
     @Test
-    public void testConstructor2() throws Exception {
+    public void test3StartingBlocks() throws Exception {
         // Often in these test methods, there is code which could throw but
         // shouldn't. Such code is included bare in a test method which
         // throws Exception. Any exception outside a try/catch fails the test.
@@ -47,30 +47,62 @@ public class TileTest {
 
         Tile t = new Tile(blocks); // Testing 3 starting ground blocks.
         assertEquals("Incorrect blocks.", blocks, t.getBlocks());
+    }
 
-        blocks.add(new WoodBlock());
+    @Test
+    public void testModifyStartingBlocks() throws Exception {
+        List<Block> b = new ArrayList<>();
+        b.add(new WoodBlock());
+        b.add(new WoodBlock());
+        b.add(new WoodBlock());
+
+        Tile t = new Tile(b);
+        b.add(new WoodBlock());
         // Modifying the parameter list should not affect the tile's blocks.
         assertEquals("Modifying list modified tile's blocks.",
             3, t.getBlocks().size());
+    }
 
-        t = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
+    @Test
+    public void test4StartingBlocks() throws Exception {
+        List<Block> blocks = new ArrayList<Block>();
+        blocks.add(new GrassBlock());
+        blocks.add(new GrassBlock());
+        blocks.add(new GrassBlock());
+        blocks.add(new WoodBlock());
+        Tile t = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
+    }
 
-        blocks.remove(blocks.size()-1);
+    @Test
+    public void test4StartingGroundBlocks() throws Exception {
+        List<Block> blocks = new ArrayList<Block>();
+        blocks.add(new GrassBlock());
+        blocks.add(new GrassBlock());
+        blocks.add(new GrassBlock());
         blocks.add(new GrassBlock());
         try {
-            t = new Tile(blocks);
+            Tile t = new Tile(blocks);
             fail("4 grass (ground) blocks, didn't throw.");
         } catch (TooHighException e) {}
+    }
 
-        blocks.remove(blocks.size()-1);
-        for (int i = 0; i < 5; i++) {
+    @Test
+    public void test8StartingBlocks() throws Exception {
+        List<Block> blocks = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
             blocks.add(new WoodBlock());
         }
-        t = new Tile(blocks); // Tests 3 ground blocks and 5 non-ground.
+        Tile t = new Tile(blocks); // Tests 8 non-ground.
+    }
 
-        blocks.add(new WoodBlock());
+    @Test
+    public void test9StartingBlocks() throws Exception {
+        List<Block> blocks = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            blocks.add(new WoodBlock());
+        }
         try {
-            t = new Tile(blocks);
+            Tile t = new Tile(blocks);
             fail("3 grass blocks, 6 wood blocks, didn't throw.");
         } catch (TooHighException e) {}
     }
