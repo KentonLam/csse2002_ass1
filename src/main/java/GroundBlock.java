@@ -1,11 +1,11 @@
 /**
- * An abstract GroundBlock that enforces not moveable and diggable
- *
+ * An abstract GroundBlock that enforces not moveable and diggable.
  */
 public abstract class GroundBlock implements Block {
 
     /**
-     * Is the GroundBlock moveable? GroundBlocks enforce not moving
+     * Whether the block can be moved.
+     * GroundBlocks cannot be moved.
      *
      * @return false
      */
@@ -14,7 +14,8 @@ public abstract class GroundBlock implements Block {
     }
 
     /**
-     * Is the GroundBlock diggable? GroundBlocks enforce allowing digging
+     * Whether the block is diggable.
+     * GroundBlocks cannot be dug.
      *
      * @return true
      */

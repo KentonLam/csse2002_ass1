@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Tiles for a map. Contains Blocks Maintains a mapping between exit names and
- * other tiles.
- *
+ * Tiles for a map, representing a vertical stack of blocks.
+ * Maintains a mapping to other tiles via certain exits.
  */
 public class Tile implements java.io.Serializable {
 

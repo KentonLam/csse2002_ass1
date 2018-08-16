@@ -1,12 +1,11 @@
 /**
- * A grass block
- *
+ * A grass block, subclass of GroundBlock and not carryable.
  */
 public class GrassBlock extends GroundBlock {
 
     /**
-     * Get the colour of a GrassBlock <br/>
-     * Always returns "green"
+     * Get the colour of a GrassBlock.
+     * Always returns "green".
      *
      * @return "green"
      */
@@ -15,8 +14,8 @@ public class GrassBlock extends GroundBlock {
     }
 
     /**
-     * Get the type of a GrassBlock <br/>
-     * Always returns "grass"
+     * Get the type of a GrassBlock.
+     * Always returns "grass".
      *
      * @return "grass"
      */
@@ -25,8 +24,8 @@ public class GrassBlock extends GroundBlock {
     }
 
     /**
-     * GrassBlocks are not carryable <br/>
-     * Always returns false
+     * GrassBlocks are not carryable.
+     * Always returns false.
      *
      * @return false
      */
