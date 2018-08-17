@@ -105,12 +105,14 @@ public class Builder {
         List<Block> inventory = this.getInventory();
 
         // Check index is within bounds of inventory size.
+        // Alternatively, we could try/catch around .get().
         int inventorySize = inventory.size();
         if (inventoryIndex < 0 || inventoryIndex >= inventorySize) {
             throw new InvalidBlockException();
         }
 
         // Place the block and remove it from our inventory.
+        // currentTile.placeBlock handles the height restrictions.
         Block block = inventory.get(inventoryIndex);
         this.currentTile.placeBlock(block);
         inventory.remove(inventoryIndex);
