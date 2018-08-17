@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,32 +18,55 @@ public class BuilderTest
     {
         Tile t = new Tile();
         Builder b = new Builder("name", t);
-        assertEquals("name", b.getName());
-        assertEquals(t, b.getCurrentTile());
+        Assert.assertEquals("name", b.getName());
+        Assert.assertEquals(t, b.getCurrentTile());
     }
 
     @Test
-    public void testConstructorExceptions() {
+    public void testConstructor2() throws Exception {
         Tile t = new Tile();
         List<Block> l = new ArrayList<Block>();
         l.add(new StoneBlock());
-        
-        boolean thrown = false;
+
         try {
             Builder b = new Builder("name", t, l);
-        } catch (InvalidBlockException e) {
-            thrown = true;
-        }
-        assertTrue("Uncarryable block should throw.", thrown);
-        thrown = false;
-        
+            Assert.fail("Uncarryable starting block didn't throw.");
+        } catch (InvalidBlockException e) {}
+
         l.clear();
         l.add(new WoodBlock());
+        l.add(new WoodBlock());
+        l.add(new WoodBlock());
+        // Shouldn't throw with carryable block.
+        Builder b = new Builder("name", t, l);
+
+        Assert.assertEquals(
+            "Incorrect starting inventory.", l, b.getInventory());
+    }
+
+    @Test
+    public void testDropFromInventory() throws Exception {
+        List<Block> inventory = new ArrayList<>();
+        inventory.add((Block)new SoilBlock());
+        Block theBlock = new WoodBlock();
+        inventory.add(theBlock);
+        inventory.add(new WoodBlock());
+        inventory.add(new WoodBlock());
+
+        Tile t = new Tile();
+        Builder b = new Builder("test name", t, inventory);
         try {
-            Builder b = new Builder("name", t, l);
-        } catch (InvalidBlockException e) {
-            thrown = true;
-        }
-        assertFalse("Carryable block shouldn't throw.", thrown);
+            b.dropFromInventory(-1);
+            Assert.fail("Negative index didn't throw.");
+        } catch (InvalidBlockException e) {}
+        try {
+            b.dropFromInventory(4);
+            Assert.fail("Too high index didn't throw.");
+        } catch (InvalidBlockException e) {}
+
+        b.dropFromInventory(1);
+        Assert.assertEquals("Wrong block placed.", theBlock, t.getTopBlock());
+        Assert.assertFalse("Block still in inventory.",
+            b.getInventory().contains(theBlock));
     }
 }
