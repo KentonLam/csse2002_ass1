@@ -9,55 +9,50 @@ import java.util.Map;
  */
 public class Tile implements java.io.Serializable {
 
+    /**
+     * Blocks on the tile, first index is bottom-most. Marked final so
+     * reference does not change.
+     */
     private final List<Block> blocks = new ArrayList<Block>();
+    /** Exit mappings, from name to another tile. */
     private final Map<String, Tile> exits = new HashMap<String, Tile>();
+    /** Maximum height of normal blocks on a tile. */
     private static final int MAX_BLOCK_HEIGHT = 8;
+    /** Maximum height of ground blocks on a tile. */
     private static final int MAX_GROUND_HEIGHT = 3;
 
     /**
-     * Construct a new tile.<br/>
-     * Each tile should be constructed with no exits (getExits().size() == 0). <br/>
-     * Each tile must be constructed to start with two soil blocks and then a grass
-     * block on top.<br/>
-     * i.e. getBlocks() must contain {SoilBlock, SoilBlock, GrassBlock} for a new
-     * Tile.
-     *
+     * Constructs a new tile with no exits, and with two soil blocks and then
+     * a grass block.
      */
     public Tile() {
-        // TODO Is there a neater way to do this in java? :/
         this.blocks.add(new SoilBlock());
         this.blocks.add(new SoilBlock());
         this.blocks.add(new GrassBlock());
     }
 
     /**
-     * Construct a new tile.<br/>
-     * Each tile should be constructed with no exits (getExits().size() == 0). <br/>
-     * Set the blocks on the tile to be the contents of startingBlocks. <br/>
-     * Index 0 in startingBlocks is the lowest block on the tile, while index N -1
-     * is the top block on the tile for N blocks. <br/>
-     * startingBlocks cannot be null. <br/>
-     * i.e. getBlocks() must contain the contents of startingBlocks, but modifying
-     * startingBlocks after constructing the Tile should not change the results of
-     * getBlocks(). <br/>
-     * Handle the following cases:
-     * <ol>
-     * <li>If startingBlocks contains more than 8 elements, throw a
-     * TooHighException.</li>
-     * <li>If startingBlocks contains an instance of GroundBlock that is at an index
-     * of 3 or higher, throw a TooHighException.</li>
-     * </ol>
+     * Constructs a new tile with no exits, and the starting blocks as
+     * specified.
      *
-     * @param startingBlocks a list of blocks on the tile, cannot be null
-     * @throws TooHighException if startingBlocks.size() > 8, or if startingBlocks
-     *                          elements ≥ 3 are instances of GroundBlock
+     * <p> Handles the following cases:
+     * <ul>
+     * <li> If startingBlocks contains more than 8 elements, throws a
+     *      TooHighException. </li>
+     * <li> If startingBlocks contains an instance of GroundBlock that is at
+     *      an index of 3 or higher, also throws a TooHighException. </li>
+     * </ul>
+     *
+     * @param startingBlocks a list of blocks, cannot be null.
+     * @throws TooHighException if startingBlocks.size() > 8, or if
+     *                          elements ≥ 3 are instances of GroundBlock.
      */
     public Tile(java.util.List<Block> startingBlocks) throws TooHighException {
         for (Block b : startingBlocks) {
             try {
                 // We can do this because if the constructor throws, the
                 // instance doesn't get created, so no half constructed tile
-                // will ever be created.
+                // will ever be returned.
                 this.placeBlock(b);
             } catch (InvalidBlockException e) {
                 // By assumption, the elements of startingBlocks are non-null.
@@ -68,26 +63,28 @@ public class Tile implements java.io.Serializable {
     }
 
     /**
-     * What exits are there from this Tile? <br/>
-     * No ordering is required.
+     * Possible exits from this tile.
      *
-     * @return map of names to Tiles
+     * @return mapping from exit directions to tiles, unordered.
      */
     public java.util.Map<String, Tile> getExits() {
         return this.exits;
     }
 
     /**
-     * What Blocks are on this Tile? <br/>
-     * Order of blocks returned must be in order of height. <br/>
-     * Index 0 is bottom, and index N - 1 is the top, for N blocks.
+     * Blocks currently on this tile, ordered with the first element being
+     * the bottom-most block.
      *
-     * @return Blocks on the Tile
+     * @return blocks on the tile.
      */
     public java.util.List<Block> getBlocks() {
         return this.blocks;
     }
 
+    /**
+     * Helper method to throw TooLowException if there are no blocks on the
+     * tile.
+     */
     private void ensureNonEmpty() throws TooLowException {
         if (this.blocks.size() <= 0) {
             throw new TooLowException();
@@ -95,11 +92,11 @@ public class Tile implements java.io.Serializable {
     }
 
     /**
-     * Return the block that is the top block on the tile. <br/>
-     * If there are no blocks, throw a TooLowException
+     * Return the top block of this tile.
+     * (i.e. the last element of getBlocks().)
      *
-     * @throws TooLowException if there are no blocks on the tile
-     * @return top Block or null if no blocks
+     * @throws TooLowException if there are no blocks on the tile.
+     * @return the top block.
      */
     public Block getTopBlock() throws TooLowException {
         this.ensureNonEmpty();
@@ -107,10 +104,9 @@ public class Tile implements java.io.Serializable {
     }
 
     /**
-     * Remove the block on top of the tile <br/>
-     * Throw a TooLowException if there are no blocks on the tile <br/>
+     * Remove the top block on this tile.
      *
-     * @throws TooLowException if there are no blocks on the tile
+     * @throws TooLowException if there are no blocks on the tile.
      */
     public void removeTopBlock() throws TooLowException {
         this.ensureNonEmpty();
@@ -118,14 +114,12 @@ public class Tile implements java.io.Serializable {
     }
 
     /**
-     * Add a new exit to this tile <br/>
-     * The Map returned by getExits() must now include an entry (name, target).
-     * Overwrites any existing exit with the same name <br/>
-     * If name or target is null, throw a NoExitException
+     * Adds a new exit to this tile, with the given direction name and tile
+     * target. Overwrites any existing exit with the same name.
      *
-     * @param name   Name of the exit
-     * @param target Tile the exit goes to
-     * @throws NoExitException if name or target is null
+     * @param name   name of the exit.
+     * @param target tile the exit goes to.
+     * @throws NoExitException if name or target is null.
      */
     public void addExit(String name, Tile target) throws NoExitException {
         if (name == null || target == null) {
@@ -135,19 +129,20 @@ public class Tile implements java.io.Serializable {
     }
 
     /**
-     * Remove an exit from this tile <br/>
-     * The Map returned by getExits() must no longer have the key name. <br/>
-     * If name does not exist in getExits(), or name is null, throw a
-     * NoExitException.
+     * Removes an exit from this tile.
      *
-     * @param name Name of exit to remove
-     * @throws NoExitException if name is not in exits, or name is null
+     * @param name name of exit to remove.
+     * @throws NoExitException if name is not in exits or name is null.
      */
     public void removeExit(String name) throws NoExitException {
         this.ensureCanExit(name);
         this.exits.remove(name);
     }
 
+    /**
+     * Helper method to throw if an exit a certain name does not exist or is
+     * null.
+     */
     private void ensureCanExit(String exitName) throws NoExitException {
         if (exitName == null || !this.exits.containsKey(exitName)
                 || this.exits.get(exitName) == null) {
@@ -156,18 +151,11 @@ public class Tile implements java.io.Serializable {
     }
 
     /**
-     * Attempt to dig in the current tile. <br/>
-     * If the top block (given by getTopBlock()) is diggable (block.isDiggable()),
-     * remove the top block of the tile and return it. <br/>
-     * Handle the following cases:
-     * <ol>
-     * <li>Throw a TooLowException if there are no blocks on the tile</li>
-     * <li>Throw an InvalidBlockException if the block is not diggable</li>
-     * </ol>
+     * Attempts to dig and return the top block of the tile.
      *
-     * @throws TooLowException       if there are no blocks on the tile
-     * @throws InvalidBlockException if the block is not diggable
-     * @return the removed block or null
+     * @throws TooLowException       if there are no blocks on the tile.
+     * @throws InvalidBlockException if the top block is not diggable.
+     * @return the removed block.
      */
     public Block dig() throws TooLowException, InvalidBlockException {
         this.ensureNonEmpty();
@@ -180,29 +168,24 @@ public class Tile implements java.io.Serializable {
     }
 
     /**
-     * Attempt to move the current top block to another tile. Remove the top block
-     * (given by getTopBlock()) from this tile and add it to the tile at the named
-     * exit (getExits(exitName)), if the block is moveable (block.isMoveable()) and
-     * the height of that tile (the number of blocks given by getBlocks().size()) is
-     * less than the current tile *before* the move. <br/>
-     * Handle the following cases:
-     * <ul>
-     * <li>If the exit is null, or does not exist, throw a NoExitException</li>
-     * <li>If the number of blocks on the target tile is ≥ to this one, throw a
-     * TooHighException</li>
-     * <li>If the block is not moveable, throw a InvalidBlockException</li>
-     * </ul>
+     * Moves our top block to another tile, via the given exit. The top block
+     * must be moveable.
      *
-     * @param exitName the name of the exit to move the block to
-     * @throws TooHighException      if the target tile is ≥ to this one.
-     * @throws InvalidBlockException if the block is not moveable
-     * @throws NoExitException       if the exit is null or does not exist
+     * <p> Removes the top block from this tile and places it on top of the
+     * tile mapped to by exitName.
+     *
+     * @param exitName the name of the exit to move the block to.
+     * @throws TooHighException      if the target's height is ≥ this height.
+     * @throws InvalidBlockException if our top block is not moveable.
+     * @throws NoExitException       if the exit is null or does not exist.
      */
     public void moveBlock(String exitName)
             throws TooHighException, InvalidBlockException, NoExitException {
         this.ensureCanExit(exitName);
 
         Tile newTile = this.exits.get(exitName);
+        // If the new height is >= our height, moving the block will be
+        // blocked by other blocks in the new tile, throw.
         if (newTile.getBlocks().size() >= this.blocks.size()) {
             throw new TooHighException();
         }
@@ -218,47 +201,45 @@ public class Tile implements java.io.Serializable {
             throw new AssertionError(e);
         }
 
-        // The block can be moved, move it.
+        // If we reach here, the block can be moved, move it.
         Block b = this.blocks.remove(this.blocks.size()-1);
         try {
             newTile.placeBlock(b);
         } catch (TooHighException e) {
             // Similarly to TooLowException in getTopBlock() being impossible,
-            // this will never throw a TooHighException. Because the other height
+            // this will never throw a TooHighException. Because the new tile
             // must be < our height, it will always be valid for our top block.
             throw new AssertionError(e);
         }
     }
 
     /**
-     * Place a block on a tile. Add the block to the top of the blocks on this tile.
-     * If the block is an instance of GroundBlock, it can only be placed
-     * underground. Handle the following cases:
-     * <ul>
-     * <li>If the block is null, throw an InvalidBlockException</li>
-     * <li>If the target block has more than 8 blocks already, or if the block is a
-     * GroundBlock and the target block has more than 3 blocks already, throw a
-     * TooHighException</li>
-     * </ul>
+     * Places a block on this tile.
+     *
+     * <p> Normal blocks cannot be placed if there are already 8 or more
+     * blocks on the tile. If the block is an instance of GroundBlock, it
+     * <i>cannot</i> be placed if there are 3 or more blocks on the tile
+     * already.
      *
      * @param block the block to place.
-     * @throws TooHighException      if there are already 8 blocks on the tile, or
-     *                               if this is a ground block and there are already
-     *                               3 blocks on the tile.
-     * @throws InvalidBlockException if the block is null
+     * @throws TooHighException      if there are already 8 blocks on the tile,
+     *                               or this is a ground block and there are
+     *                               already 3 or more blocks on this tile.
+     * @throws InvalidBlockException if the block is null.
      */
     public void placeBlock(Block block)
             throws TooHighException, InvalidBlockException {
-
-        if (block == null) {
+        if (block == null) { // Checking the trivial case.
             throw new InvalidBlockException();
         }
+        // Gets the max height appropriate for the block's type.
+        // Could be generalised to place limits on arbitrary block types.
         int maxHeight = (block instanceof GroundBlock
             ? MAX_GROUND_HEIGHT : MAX_BLOCK_HEIGHT);
         if (this.blocks.size() >= maxHeight) {
             throw new TooHighException();
         }
-        this.blocks.add(block);
+        this.blocks.add(block); // The block is valid at this height, places.
     }
 
 }
