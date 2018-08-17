@@ -1,12 +1,11 @@
 /**
- * A wooden block or crate.
- *
+ * A wooden block or crate, is carryable, diggable and moveable.
  */
 public class WoodBlock implements Block {
 
     /**
-     * Get the colour of a WoodBlock. <br/>
-     * Always returns "brown"
+     * Get the colour of a WoodBlock.
+     * Always returns "brown".
      *
      * @return "brown"
      */
@@ -15,8 +14,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * Get the type of a WoodBlock <br/>
-     * Always returns "wood"
+     * Get the type of a WoodBlock.
+     * Always returns "wood".
      *
      * @return "wood"
      */
@@ -25,8 +24,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * A woodblock is diggable <br/>
-     * Always returns true
+     * A woodblock is diggable.
+     * Always returns true.
      *
      * @return true
      */
@@ -35,8 +34,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * A woodblock is carryable <br/>
-     * Always returns true
+     * A woodblock is carryable.
+     * Always returns true.
      *
      * @return true
      */
@@ -45,8 +44,8 @@ public class WoodBlock implements Block {
     }
 
     /**
-     * A woodblock is moveable <br/>
-     * Always returns true
+     * A woodblock is moveable.
+     * Always returns true.
      *
      * @return true
      */
