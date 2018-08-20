@@ -47,7 +47,7 @@ public class BuilderTest
     @Test
     public void testDropFromInventory() throws Exception {
         List<Block> inventory = new ArrayList<>();
-        inventory.add((Block)new SoilBlock());
+        inventory.add(new SoilBlock());
         Block theBlock = new WoodBlock();
         inventory.add(theBlock);
         inventory.add(new WoodBlock());
@@ -68,5 +68,56 @@ public class BuilderTest
         Assert.assertEquals("Wrong block placed.", theBlock, t.getTopBlock());
         Assert.assertFalse("Block still in inventory.",
             b.getInventory().contains(theBlock));
+    }
+
+    @Test
+    public void testDigOnCurrentTile() throws Exception {
+        Tile t = new Tile(new ArrayList<Block>());
+        Builder b = new Builder("test", t);
+
+        try {
+            b.digOnCurrentTile();
+            Assert.fail("Digging empty tile didn't throw.");
+        } catch (TooLowException e) {}
+
+        t.placeBlock(new SoilBlock());
+        t.placeBlock(new StoneBlock());
+        try {
+            b.digOnCurrentTile();
+            Assert.fail("Digging undiggable block didn't throw.");
+        } catch (InvalidBlockException e) {}
+
+        Block nonCarryable = new GrassBlock();
+        t.placeBlock(nonCarryable);
+        b.digOnCurrentTile();
+        Assert.assertNotEquals("Block not removed from tile.",
+            nonCarryable, t.getTopBlock());
+        Assert.assertFalse("Uncarryable block placed in inventory.",
+            b.getInventory().contains(nonCarryable));
+
+        Block carryable = new WoodBlock();
+        t.placeBlock(carryable);
+        Assert.assertTrue("Carryable block not placed into inventory.",
+            b.getInventory().contains(carryable));
+    }
+
+    @Test
+    public void testCanEnter() throws Exception {
+        Tile t = new Tile();
+        Builder b = new Builder("test", t);
+
+        Assert.assertFalse("Can enter null tile.", b.canEnter(null));
+
+        Tile t2 = new Tile();
+        Assert.assertFalse("Can enter unconnected tile.", b.canEnter(t2));
+
+        t.placeBlock(new WoodBlock());
+        t.addExit("exit name", t2);
+        Assert.assertTrue("Cannot enter a connected tile one block lower.",
+            b.canEnter(t2));
+
+        t.placeBlock(new WoodBlock());
+        Assert.assertFalse("Can enter a tile 2 blocks lower.",
+            b.canEnter(t2));
     }
 }
