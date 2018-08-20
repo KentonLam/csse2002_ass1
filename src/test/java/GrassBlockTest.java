@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -13,18 +13,18 @@ public class GrassBlockTest {
     @Test
     public void testGetColour() {
         GrassBlock grass = new GrassBlock();
-        assertEquals("Grass is not green.", "green", grass.getColour());
+        Assert.assertEquals("Grass is not green.", "green", grass.getColour());
     }
 
     @Test
     public void testGetBlockType() {
         GrassBlock grass = new GrassBlock();
-        assertEquals("Grass is not grass.", "grass", grass.getBlockType());
+        Assert.assertEquals("Grass is not grass.", "grass", grass.getBlockType());
     }
 
     @Test
     public void testIsCarryable() {
         GrassBlock grass = new GrassBlock();
-        assertFalse("Grass shouldn't be carryable.", grass.isCarryable());
+        Assert.assertFalse("Grass shouldn't be carryable.", grass.isCarryable());
     }
 }
