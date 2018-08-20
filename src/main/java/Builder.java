@@ -140,7 +140,7 @@ public class Builder {
      */
     public void digOnCurrentTile()
         throws TooLowException, InvalidBlockException {
-        // .dig() throws appropriately.
+        // .dig() throws InvalidBlockException appropriately.
         Block dugBlock = this.currentTile.dig();
         if (dugBlock.isCarryable()) {
             this.inventory.add(dugBlock);
