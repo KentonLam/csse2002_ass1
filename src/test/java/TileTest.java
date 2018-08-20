@@ -31,21 +31,21 @@ public class TileTest {
 
     @Test
     public void testConstructor1() {
-        Tile t = new Tile();
-        List<Block> b = t.getBlocks();
+        Tile tile = new Tile();
+        List<Block> blocks = tile.getBlocks();
 
         Assert.assertEquals(
-            "Not 3 initial blocks.", 3, b.size());
+            "Not 3 initial blocks.", 3, blocks.size());
         // We can't use Assert.assertEquals() with a List<Block> because
         // .equals() for Block compares references, not types.
         Assert.assertTrue(
-            "First block not soil.", b.get(0) instanceof SoilBlock);
+            "First block not soil.", blocks.get(0) instanceof SoilBlock);
         Assert.assertTrue(
-            "Second block not soil.", b.get(1) instanceof SoilBlock);
+            "Second block not soil.", blocks.get(1) instanceof SoilBlock);
         Assert.assertTrue(
-            "Third block not grass.", b.get(2) instanceof GrassBlock);
+            "Third block not grass.", blocks.get(2) instanceof GrassBlock);
         Assert.assertEquals(
-            "Initial exits exist.", 0, t.getExits().size());
+            "Initial exits exist.", 0, tile.getExits().size());
     }
 
     @Test
@@ -56,19 +56,19 @@ public class TileTest {
 
         List<Block> blocks = makeBlockList(GrassBlock.class, 3);
 
-        Tile t = new Tile(blocks); // Testing 3 starting ground blocks.
-        Assert.assertEquals("Incorrect blocks.", blocks, t.getBlocks());
+        Tile tile = new Tile(blocks); // Testing 3 starting ground blocks.
+        Assert.assertEquals("Incorrect blocks.", blocks, tile.getBlocks());
 
         blocks.add(new WoodBlock());
         // Modifying the parameter list should not affect the tile's blocks.
         Assert.assertEquals("Modifying list modified tile's blocks.",
-            3, t.getBlocks().size());
+            3, tile.getBlocks().size());
 
-        t = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
+        tile = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
 
         blocks = makeBlockList(GrassBlock.class, 4);
         try {
-            t = new Tile(blocks);
+            tile = new Tile(blocks);
             Assert.fail("4 grass (ground) blocks, didn't throw.");
         } catch (TooHighException e) {}
 
@@ -76,41 +76,41 @@ public class TileTest {
         for (int i = 0; i < 5; i++) {
             blocks.add(new WoodBlock());
         }
-        t = new Tile(blocks); // Tests 3 ground blocks and 5 non-ground.
+        tile = new Tile(blocks); // Tests 3 ground blocks and 5 non-ground.
 
         blocks.add(new WoodBlock());
         try {
-            t = new Tile(blocks);
+            tile = new Tile(blocks);
             Assert.fail("3 grass blocks, 6 wood blocks, didn't throw.");
         } catch (TooHighException e) {}
     }
 
     @Test
     public void testExits() throws Exception {
-        Tile t = new Tile();
+        Tile tile = new Tile();
 
         try {
-            t.addExit(null, t);
+            tile.addExit(null, tile);
             Assert.fail("Null exit name should throw but didn't.");
         } catch (NoExitException e) {}
 
         try {
-            t.addExit("exit name", null);
+            tile.addExit("exit name", null);
             Assert.fail("Null target tile should throw but didn't.");
         } catch (NoExitException e) {}
 
         Tile other = new Tile();
-        t.addExit("name", other);
+        tile.addExit("name", other);
         Assert.assertTrue(
-            "New exit not stored.", t.getExits().containsKey("name"));
+            "New exit not stored.", tile.getExits().containsKey("name"));
         Assert.assertEquals(
-            "New exit is the wrong tile.", other, t.getExits().get("name"));
+            "New exit is the wrong tile.", other, tile.getExits().get("name"));
 
         Tile newTarget = new Tile();
-        t.addExit("name", newTarget);
+        tile.addExit("name", newTarget);
         Assert.assertEquals(
             "Target with same name not overwritten.",
-            newTarget, t.getExits().get("name"));
+            newTarget, tile.getExits().get("name"));
     }
 
     // getBlocks is effectively tested in many other places, for example,
@@ -118,126 +118,126 @@ public class TileTest {
 
     @Test
     public void testGetExits() throws NoExitException {
-        Tile t = new Tile();
-        t.addExit("up", t);
-        t.addExit("down", t);
+        Tile tile = new Tile();
+        tile.addExit("up", tile);
+        tile.addExit("down", tile);
 
-        Map<String, Tile> m = new HashMap<>();
-        m.put("down", t);
-        m.put("up", t);
+        Map<String, Tile> map = new HashMap<>();
+        map.put("down", tile);
+        map.put("up", tile);
 
-        Assert.assertEquals("Incorrect exits.", m, t.getExits());
+        Assert.assertEquals("Incorrect exits.", map, tile.getExits());
     }
 
     @Test
     public void testGetTopBlock() throws Exception {
-        Tile t = new Tile(new ArrayList<Block>());
+        Tile tile = new Tile(new ArrayList<Block>());
 
         try {
-            t.getTopBlock();
+            tile.getTopBlock();
             Assert.fail("Get top block of empty tile didn't throw.");
         } catch (TooLowException e) {}
 
         Block top = new WoodBlock();
-        t = new Tile(Arrays.asList((Block)new SoilBlock(), top));
-        Assert.assertEquals("Incorrect top block.", top, t.getTopBlock());
+        tile = new Tile(Arrays.asList((Block)new SoilBlock(), top));
+        Assert.assertEquals("Incorrect top block.", top, tile.getTopBlock());
     }
 
     @Test
     public void testRemoveTopBlock() throws Exception {
-        Tile t = new Tile(new ArrayList<Block>());
+        Tile tile = new Tile(new ArrayList<Block>());
 
         try {
-            t.removeTopBlock();
+            tile.removeTopBlock();
             Assert.fail("Remove top block of empty tile didn't throw.");
         } catch (TooLowException e) {}
 
         List<Block> blockList = makeBlockList(WoodBlock.class, 2);
 
         Block bottomBlock = blockList.get(0);
-        t = new Tile(blockList);
-        t.removeTopBlock();
+        tile = new Tile(blockList);
+        tile.removeTopBlock();
         Assert.assertEquals(
             "Top block incorrectly removed.",
-            Arrays.asList(bottomBlock), t.getBlocks()
+            Arrays.asList(bottomBlock), tile.getBlocks()
         );
     }
 
     @Test
     public void testRemoveExit() throws Exception {
-        Tile t = new Tile();
-        t.addExit("up", t);
-        t.addExit("right", t);
+        Tile tile = new Tile();
+        tile.addExit("up", tile);
+        tile.addExit("right", tile);
 
         try {
-            t.removeExit(null);
+            tile.removeExit(null);
             Assert.fail("Removing null exit didn't throw.");
         } catch (NoExitException e) {}
 
         try {
-            t.removeExit("down");
+            tile.removeExit("down");
             Assert.fail("Removing non-existent exit didn't throw.");
         } catch (NoExitException e) {}
 
         Map<String, Tile> expected = new HashMap<String,Tile>();
-        expected.put("right", t);
-        t.removeExit("up");
+        expected.put("right", tile);
+        tile.removeExit("up");
         Assert.assertEquals(
-            "Exit not removed correctly.", expected, t.getExits());
+            "Exit not removed correctly.", expected, tile.getExits());
     }
 
     @Test
     public void testDig() throws Exception {
-        Tile t = new Tile(new ArrayList<Block>());
+        Tile tile = new Tile(new ArrayList<Block>());
         try {
-            t.dig();
+            tile.dig();
             Assert.fail("Digging empty tile didn't throw.");
         } catch (TooLowException e) {}
 
-        t = new Tile();
-        t.placeBlock(new StoneBlock());
+        tile = new Tile();
+        tile.placeBlock(new StoneBlock());
         try {
-            t.dig();
+            tile.dig();
             Assert.fail("Digging undiggable block didn't throw.");
         } catch (InvalidBlockException e) {}
 
         List<Block> blocks = makeBlockList(WoodBlock.class, 5);
-        t = new Tile(blocks);
+        tile = new Tile(blocks);
         Block topBlock = blocks.get(4);
-        Block dugBlock = t.dig();
+        Block dugBlock = tile.dig();
 
         Assert.assertEquals(
             "Digging removed incorrect block.", topBlock, dugBlock);
         Assert.assertEquals(
             "Digging resulted in the incorrect blocks.",
-            blocks.subList(0, 4), t.getBlocks());
+            blocks.subList(0, 4), tile.getBlocks());
     }
 
     @Test
     public void testPlaceBlock() throws Exception {
-        Tile t = new Tile();
+        Tile tile = new Tile();
         try {
-            t.placeBlock(null);
+            tile.placeBlock(null);
             Assert.fail("Placing null block didn't throw.");
         } catch (InvalidBlockException e) {}
         try {
-            t.placeBlock(new SoilBlock());
+            tile.placeBlock(new SoilBlock());
             Assert.fail("Placing ground block above height 3 didn't throw.");
         } catch (TooHighException e) {}
 
         for (int i = 0; i < 5; i++) {
             Block topBlock = new WoodBlock();
             // Testing place until 8 blocks are on the tile. Should succeed.
-            t.placeBlock(topBlock);
+            tile.placeBlock(topBlock);
             Assert.assertEquals("Block not placed on top.",
-                topBlock, t.getTopBlock());
+                topBlock, tile.getTopBlock());
         }
         try {
-            t.placeBlock(new WoodBlock());
+            tile.placeBlock(new WoodBlock());
             Assert.fail("Placing normal block above 8 didn't throw.");
         } catch (TooHighException e) {}
         try {
-            t.placeBlock(new SoilBlock());
+            tile.placeBlock(new SoilBlock());
             Assert.fail("Placing ground block above 8 didn't throw.");
         } catch (TooHighException e) {}
     }

@@ -7,24 +7,24 @@ import org.junit.Test;
 public class GrassBlockTest {
     @Test
     public void testConstructor() {
-        GrassBlock g = new GrassBlock();
+        GrassBlock grass = new GrassBlock();
     }
 
     @Test
     public void testGetColour() {
-        GrassBlock g = new GrassBlock();
-        assertEquals("Grass is not green.", "green", g.getColour());
+        GrassBlock grass = new GrassBlock();
+        assertEquals("Grass is not green.", "green", grass.getColour());
     }
 
     @Test
     public void testGetBlockType() {
-        GrassBlock g = new GrassBlock();
-        assertEquals("Grass is not grass.", "grass", g.getBlockType());
+        GrassBlock grass = new GrassBlock();
+        assertEquals("Grass is not grass.", "grass", grass.getBlockType());
     }
 
     @Test
     public void testIsCarryable() {
-        GrassBlock g = new GrassBlock();
-        assertFalse("Grass shouldn't be carryable.", g.isCarryable());
+        GrassBlock grass = new GrassBlock();
+        assertFalse("Grass shouldn't be carryable.", grass.isCarryable());
     }
 }
