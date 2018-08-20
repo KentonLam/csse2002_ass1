@@ -97,6 +97,7 @@ public class BuilderTest
 
         Block carryable = new WoodBlock();
         t.placeBlock(carryable);
+        b.digOnCurrentTile();
         Assert.assertTrue("Carryable block not placed into inventory.",
             b.getInventory().contains(carryable));
     }
