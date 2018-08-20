@@ -67,6 +67,7 @@
                 <targetClasses>
                     <param>Tile</param>
                     <param>GrassBlock</param>
+                    <param>Builder</param>
                 </targetClasses>
                 <targetTests>
                     <param>*</param>
