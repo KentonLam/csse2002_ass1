@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 public class TileTest {
     /** Helper method to generate a list of a certain type of block. */
-    private <T extends Block> List<Block> makeBlockList(
+    private static <T extends Block> List<Block> makeBlockList(
             Class<T> classType, int size) {
 
         List<Block> blocks = new ArrayList<>();
