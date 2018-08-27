@@ -712,7 +712,7 @@ public class TestMethods {
             return false;
         }
 
-        List<Class> methodExceptionTypes =
+        List<Class<?>> methodExceptionTypes =
             new ArrayList<>(Arrays.asList(method.getExceptionTypes()));
 
         // sort both
