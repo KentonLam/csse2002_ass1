@@ -25,7 +25,7 @@ public class TestMethods {
 
     // set a 20 second timeout on all test cases.
     @Rule
-    public Timeout gt=Timeout.seconds(20);
+    public Timeout gt = new Timeout(20*1000);
 
     // constants for NO_ARGS and NO_EXCEPTIONS
     // are just empty arrays
@@ -247,7 +247,7 @@ public class TestMethods {
                     Modifier.ABSTRACT) > 0);
 
         // check that GroundBlock implements Block
-        List<Class> interfaces =
+        List<Class<?>> interfaces =
             Arrays.asList(GroundBlock.class.getInterfaces());
         assertTrue(interfaces.contains(Block.class));
 
@@ -383,7 +383,7 @@ public class TestMethods {
                      Modifier.ABSTRACT) > 0);
 
         // check that StoneBlock implements Block
-        List<Class> interfaces =
+        List<Class<?>> interfaces =
             Arrays.asList(StoneBlock.class.getInterfaces());
         assertTrue(interfaces.contains(Block.class));
 
@@ -565,7 +565,7 @@ public class TestMethods {
                      Modifier.ABSTRACT) > 0);
 
         // check that StoneBlock implements Block
-        List<Class> interfaces =
+        List<Class<?>> interfaces =
             Arrays.asList(WoodBlock.class.getInterfaces());
         assertTrue(interfaces.contains(Block.class));
 
