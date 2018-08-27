@@ -11,4 +11,4 @@ deploy:
   file: 'csse2002_ass1_submission.zip'
   skip_cleanup: true
   on:
-    tags
+    tags: true
