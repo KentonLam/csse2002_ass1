@@ -3,7 +3,7 @@ install:
  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
  - mvn test -B
- - ./assemble_zip.py
+ - /usr/bin/env python3 ./assemble_zip.py
 deploy:
   provider: releases
   api_key:
