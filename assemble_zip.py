@@ -41,7 +41,7 @@ def main():
             print('    Kept', f)
 
     print('Executing tests...')
-    test_result = subprocess.call(['mvn', 'clean', 'test', '-B'], shell=True)
+    test_result = subprocess.call(['mvn clean test -B'], shell=True)
     if test_result != 0:
         sys.exit(test_result)
 
