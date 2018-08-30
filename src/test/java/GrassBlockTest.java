@@ -27,4 +27,17 @@ public class GrassBlockTest {
     public void testIsCarryable() {
         assertFalse("Grass shouldn't be carryable.", grass.isCarryable());
     }
+
+    // Testing the abstract class GroundBlock.
+    @Test
+    public void testIsMoveable() {
+        assertFalse("Grass (ground block) shouldn't be moveable.",
+                grass.isMoveable());
+    }
+
+    @Test
+    public void testIsDiggable() {
+        assertTrue("Grass (ground block) should be diggable.",
+                grass.isDiggable());
+    }
 }
