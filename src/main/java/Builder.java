@@ -9,7 +9,7 @@ import java.util.List;
 public class Builder {
 
     /** Player's current inventory. All blocks should be carryable. */
-    private java.util.List<Block> inventory;
+    private List<Block> inventory;
     /** Tile the player is currently on. */
     private Tile currentTile;
     /** Player's name. */
