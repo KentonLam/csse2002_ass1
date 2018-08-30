@@ -5,6 +5,7 @@ install:
  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
  - mvn test -B
+ - mvn org.pitest:pitest-maven:mutationCoverage -q -B
  - /usr/bin/env python3 ./assemble_zip.py ${SUBMISSION_ZIP}
  - javac CheckZipAssignment1.java
  - java CheckZipAssignment1 ${SUBMISSION_ZIP}
