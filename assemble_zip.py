@@ -47,7 +47,7 @@ def main():
 
     print('Compiling artifact zip...')
 
-    if len(sys.argv < 2):
+    if len(sys.argv) < 2:
         print('Requires zip name argument.')
         sys.exit(1)
 
