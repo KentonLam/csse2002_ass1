@@ -7,7 +7,7 @@ import java.util.Map;
  * Tiles for a map, representing a vertical stack of blocks.
  * Maintains a mapping to other tiles via certain exits.
  */
-public class Tile implements java.io.Serializable {
+public class Tile {
 
     /**
      * Blocks on the tile, first index is bottom-most. Marked final so
@@ -47,7 +47,7 @@ public class Tile implements java.io.Serializable {
      * @throws TooHighException if startingBlocks.size() > 8, or if
      *                          elements ≥ 3 are instances of GroundBlock.
      */
-    public Tile(java.util.List<Block> startingBlocks) throws TooHighException {
+    public Tile(List<Block> startingBlocks) throws TooHighException {
         for (Block b : startingBlocks) {
             try {
                 // We can do this because if the constructor throws, the
@@ -67,7 +67,7 @@ public class Tile implements java.io.Serializable {
      *
      * @return mapping from exit directions to tiles, unordered.
      */
-    public java.util.Map<String, Tile> getExits() {
+    public Map<String, Tile> getExits() {
         return this.exits;
     }
 
@@ -77,7 +77,7 @@ public class Tile implements java.io.Serializable {
      *
      * @return blocks on the tile.
      */
-    public java.util.List<Block> getBlocks() {
+    public List<Block> getBlocks() {
         return this.blocks;
     }
 
