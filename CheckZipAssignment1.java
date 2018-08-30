@@ -107,9 +107,11 @@ public class CheckZipAssignment1 {
                 System.out.println("\t" + filename);
         }
 
+
+        boolean failed = false;
         if (extraFilenames.size() > 0) {
                 // if there is at least one extra file
-
+                failed = true;
                 System.out.println("\nSpurious files:");
                 for (String filename : extraFilenames) {
                         System.out.println("\t" + filename);
@@ -118,13 +120,18 @@ public class CheckZipAssignment1 {
 
         if (expectedFilenames.containsValue(false)) {
                 // if there is at least one missing file
-
+                failed = true;
                 System.out.println("\nMissing files:");
                 for (Map.Entry<String, Boolean> entry : expectedFilenames.entrySet()) {
                         if (entry.getValue().booleanValue() == false) {
                                 System.out.println("\t" + entry.getKey());
                         }
                 }
+        }
+
+        if (failed) {
+            System.out.println("Spurious or missing files!");
+            System.exit(1);
         }
 
     }
