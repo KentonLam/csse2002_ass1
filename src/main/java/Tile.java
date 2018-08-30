@@ -14,8 +14,8 @@ public class Tile implements Serializable {
      * Blocks on the tile, first index is bottom-most. Marked final so
      * reference does not change.
      */
-    private final List<Block> blocks = new ArrayList<Block>();
-    /** Exit mappings, from name to another tile. */
+    private final List<Block> blocks = new ArrayList<Block>(); // TODO: Stack?
+    /** Exit mappings, from exit name to another tile. */
     private final Map<String, Tile> exits = new HashMap<String, Tile>();
     /** Maximum height of normal blocks on a tile. */
     private static final int MAX_BLOCK_HEIGHT = 8;

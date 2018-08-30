@@ -5,7 +5,7 @@ public abstract class GroundBlock implements Block {
 
     /**
      * Whether the block can be moved.
-     * GroundBlocks cannot be moved.
+     * GroundBlocks can never be moved.
      *
      * @return false
      */
@@ -15,7 +15,7 @@ public abstract class GroundBlock implements Block {
 
     /**
      * Whether the block is diggable.
-     * GroundBlocks cannot be dug.
+     * GroundBlocks can never be dug.
      *
      * @return true
      */

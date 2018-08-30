@@ -152,12 +152,12 @@ public class Builder {
      *
      * <p>  Returns true if:
      * <ul>
-     * <li> there is an exit from the current tile to the new tile, and</li>
+     * <li> there is an exit from the current tile to the new tile, and </li>
      * <li> the height of the new tile is at most 1 block above or below this
-     *      tile.</li>
+     *      tile. </li>
      * </ul>
      *
-     * If newTile is null return false.
+     * If newTile is null, return false.
      *
      * @param newTile the tile to test if we can enter.
      * @return true if the tile can be entered.
