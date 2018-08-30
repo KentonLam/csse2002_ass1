@@ -12,7 +12,13 @@ import org.junit.Test;
  * TileTest
  */
 public class TileTest {
-    /** Helper method to generate a list of a certain type of block. */
+    /**
+     * Helper method to generate a list of a certain type of block.
+     *
+     * @param <T> A type implementing Block.
+     * @param classType Class type to use in list.
+     * @param size Number of class instances required.
+     */
     private static <T extends Block> List<Block> makeBlockList(
             Class<T> classType, int size) {
 
