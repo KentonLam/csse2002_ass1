@@ -12,6 +12,9 @@ import org.junit.Test;
  * TileTest
  */
 public class TileTest {
+    // We don't use a setup function because many test methods require
+    // a specially constructed tile.
+
     /**
      * Helper method to generate a list of a certain type of block.
      *
