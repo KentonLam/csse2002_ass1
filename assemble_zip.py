@@ -51,6 +51,8 @@ def main():
         print('Requires zip name argument.')
         sys.exit(1)
 
+    print('Writing zip file', sys.argv[1])
+
     zf = zipfile.ZipFile('./../'+sys.argv[1], 'w')
 
     for file_structure in (src_files, test_files):
