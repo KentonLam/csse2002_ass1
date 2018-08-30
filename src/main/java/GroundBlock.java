@@ -15,7 +15,7 @@ public abstract class GroundBlock implements Block {
 
     /**
      * Whether the block is diggable.
-     * GroundBlocks can never be dug.
+     * GroundBlocks can always be dug.
      *
      * @return true
      */
