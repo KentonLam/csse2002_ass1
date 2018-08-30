@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Map;
  * Tiles for a map, representing a vertical stack of blocks.
  * Maintains a mapping to other tiles via certain exits.
  */
-public class Tile {
+public class Tile implements Serializable {
 
     /**
      * Blocks on the tile, first index is bottom-most. Marked final so
