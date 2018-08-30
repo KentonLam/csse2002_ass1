@@ -169,7 +169,7 @@ public class Builder {
         }
 
         // If there is no exit to newTile, it cannot be entered.
-        if (!this.currentTile.getExits().values().contains(newTile)) {
+        if (!this.currentTile.getExits().containsValue(newTile)) {
             return false;
         }
 
