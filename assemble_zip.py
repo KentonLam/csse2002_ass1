@@ -21,7 +21,7 @@ test_files = {
     'src_path': 'src/test/java/',
     'dest_path': 'test/',
     'include': [
-        'TileTest.java'
+        'GrassBlockTest.java', 'TileTest.java'
     ]
 }
 
