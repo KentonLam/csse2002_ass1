@@ -73,7 +73,7 @@ public class TileTest {
         blocks.add(new WoodBlock());
         // Modifying the parameter list should not affect the tile's blocks.
         assertEquals("Modifying list modified tile's blocks.",
-            3, tile.getBlocks().size());
+                3, tile.getBlocks().size());
 
         tile = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
 
@@ -112,16 +112,15 @@ public class TileTest {
 
         Tile other = new Tile();
         tile.addExit("name", other);
-        assertTrue(
-            "New exit not stored.", tile.getExits().containsKey("name"));
-        assertEquals(
-            "New exit is the wrong tile.", other, tile.getExits().get("name"));
+        assertTrue("New exit not stored.",
+                tile.getExits().containsKey("name"));
+        assertEquals("New exit is the wrong tile.",
+                other, tile.getExits().get("name"));
 
         Tile newTarget = new Tile();
         tile.addExit("name", newTarget);
-        assertEquals(
-            "Target with same name not overwritten.",
-            newTarget, tile.getExits().get("name"));
+        assertEquals("Target with same name not overwritten.",
+                newTarget, tile.getExits().get("name"));
     }
 
     // getBlocks is effectively tested in many other places, for example,
@@ -168,10 +167,8 @@ public class TileTest {
         Block bottomBlock = blockList.get(0);
         tile = new Tile(blockList);
         tile.removeTopBlock();
-        assertEquals(
-            "Top block incorrectly removed.",
-            Arrays.asList(bottomBlock), tile.getBlocks()
-        );
+        assertEquals("Top block incorrectly removed.",
+                Arrays.asList(bottomBlock), tile.getBlocks());
     }
 
     @Test
@@ -193,8 +190,7 @@ public class TileTest {
         Map<String, Tile> expected = new HashMap<String,Tile>();
         expected.put("right", tile);
         tile.removeExit("up");
-        assertEquals(
-            "Exit not removed correctly.", expected, tile.getExits());
+        assertEquals("Exit not removed correctly.", expected, tile.getExits());
     }
 
     @Test
@@ -217,11 +213,9 @@ public class TileTest {
         Block topBlock = blocks.get(4);
         Block dugBlock = tile.dig();
 
-        assertEquals(
-            "Digging removed incorrect block.", topBlock, dugBlock);
-        assertEquals(
-            "Digging resulted in the incorrect blocks.",
-            blocks.subList(0, 4), tile.getBlocks());
+        assertEquals("Digging removed incorrect block.", topBlock, dugBlock);
+        assertEquals("Digging resulted in the incorrect blocks.",
+                blocks.subList(0, 4), tile.getBlocks());
     }
 
     @Test
@@ -282,12 +276,10 @@ public class TileTest {
         // otherTile is 1 height lower here. Should succeed.
         tile.moveBlock("test exit");
 
-        assertNotEquals(
-            "Block not removed from original tile.",
-            blockToMove, tile.getTopBlock());
-        assertEquals(
-            "Block placed on new tile.",
-            blockToMove, otherTile.getTopBlock());
+        assertNotEquals("Block not removed from original tile.",
+                blockToMove, tile.getTopBlock());
+        assertEquals("Block placed on new tile.",
+                blockToMove, otherTile.getTopBlock());
 
         otherTile.placeBlock(new StoneBlock());
         try {
