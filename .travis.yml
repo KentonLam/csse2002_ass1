@@ -3,12 +3,12 @@ env:
   - SUBMISSION_ZIP=csse2002_ass1_submission_${TRAVIS_TAG}+${TRAVIS_BUILD_NUMBER}.zip
 install:
  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+before_script:
+ - javac CheckZipAssignment1.java
 script:
  - mvn test -B
  - mvn org.pitest:pitest-maven:mutationCoverage -q -B
- - /usr/bin/env python3 ./assemble_zip.py ${SUBMISSION_ZIP}
- - javac CheckZipAssignment1.java
- - java CheckZipAssignment1 ${SUBMISSION_ZIP}
+ - /usr/bin/env python3 ./assemble_zip.py ${SUBMISSION_ZIP} && java CheckZipAssignment1 ${SUBMISSION_ZIP}
 deploy:
   provider: releases
   api_key:
