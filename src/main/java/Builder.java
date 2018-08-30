@@ -115,6 +115,7 @@ public class Builder {
         // currentTile.placeBlock handles the height restrictions.
         Block block = inventory.get(inventoryIndex);
         this.currentTile.placeBlock(block);
+        // After placeBlock so invalid blocks aren't remvoed.
         inventory.remove(inventoryIndex);
     }
 
