@@ -56,8 +56,9 @@ public class Tile implements Serializable {
                 // will ever be returned.
                 this.placeBlock(b);
             } catch (InvalidBlockException e) {
-                // By assumption, the elements of startingBlocks are non-null.
-                // Only here because this constructor can't throw invalid block.
+                // Never thrown. By assumption, the elements of startingBlocks
+                // are non-null. Only here because this constructor can't throw
+                // invalid block.
                 throw new AssertionError(e);
             }
         }
@@ -73,7 +74,7 @@ public class Tile implements Serializable {
     }
 
     /**
-     * Blocks currently on this tile, ordered with the first element being
+     * Blocks currently on this tile, with the first element being
      * the bottom-most block.
      *
      * @return blocks on the tile.
@@ -159,8 +160,7 @@ public class Tile implements Serializable {
      * @return the removed block.
      */
     public Block dig() throws TooLowException, InvalidBlockException {
-        this.ensureNonEmpty();
-        Block topBlock = this.getTopBlock();
+        Block topBlock = this.getTopBlock(); // Throws TooLow for us.
         if (!topBlock.isDiggable()) {
             throw new InvalidBlockException();
         }

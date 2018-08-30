@@ -31,6 +31,8 @@ public class TileTest {
                 blocks.add(classType.newInstance());
             }
         } catch (IllegalAccessException e) {
+            // These should never happen because we will always pass a
+            // valid constructor.
             return null;
         } catch (InstantiationException e) {
             return null;
@@ -79,7 +81,7 @@ public class TileTest {
         try {
             tile = new Tile(blocks);
             fail("4 grass (ground) blocks, didn't throw.");
-        } catch (TooHighException e) {}
+        } catch (TooHighException e) {} // Silence expected exceptions.
 
         blocks = makeBlockList(GrassBlock.class, 3);
         for (int i = 0; i < 5; i++) {
