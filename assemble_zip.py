@@ -47,7 +47,11 @@ def main():
 
     print('Compiling artifact zip...')
 
-    zf = zipfile.ZipFile('./../csse2002_ass1_submission.zip', 'w')
+    if len(sys.argv < 2):
+        print('Requires zip name argument.')
+        sys.exit(1)
+
+    zf = zipfile.ZipFile('./../'+sys.argv[1], 'w')
 
     for file_structure in (src_files, test_files):
         for f in file_structure['include']:
