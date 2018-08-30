@@ -1,5 +1,5 @@
 /**
- * An abstract GroundBlock that enforces not moveable and diggable.
+ * An abstract GroundBlock that is diggable but not moveable.
  */
 public abstract class GroundBlock implements Block {
 
