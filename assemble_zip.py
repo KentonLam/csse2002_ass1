@@ -10,7 +10,7 @@ src_files = {
     'src_path': 'src/main/java/',
     'dest_path': 'src/',
     'include': [ x+'.java' for x in
-        ( 'BlockWorldException', 'Builder', 'GrassBlock',
+        ('Block', 'BlockWorldException', 'Builder', 'GrassBlock',
         'GroundBlock', 'InvalidBlockException', 'NoExitException',
         'SoilBlock', 'StoneBlock', 'Tile', 'TooHighException',
         'TooLowException', 'WoodBlock')
