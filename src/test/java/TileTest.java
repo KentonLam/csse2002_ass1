@@ -1,4 +1,4 @@
-import org.junit.Assert;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,17 +34,17 @@ public class TileTest {
         Tile tile = new Tile();
         List<Block> blocks = tile.getBlocks();
 
-        Assert.assertEquals(
+        assertEquals(
             "Not 3 initial blocks.", 3, blocks.size());
-        // We can't use Assert.assertEquals() with a List<Block> because
+        // We can't use assertEquals() with a List<Block> because
         // .equals() for Block compares references, not types.
-        Assert.assertTrue(
+        assertTrue(
             "First block not soil.", blocks.get(0) instanceof SoilBlock);
-        Assert.assertTrue(
+        assertTrue(
             "Second block not soil.", blocks.get(1) instanceof SoilBlock);
-        Assert.assertTrue(
+        assertTrue(
             "Third block not grass.", blocks.get(2) instanceof GrassBlock);
-        Assert.assertEquals(
+        assertEquals(
             "Initial exits exist.", 0, tile.getExits().size());
     }
 
@@ -57,11 +57,11 @@ public class TileTest {
         List<Block> blocks = makeBlockList(GrassBlock.class, 3);
 
         Tile tile = new Tile(blocks); // Testing 3 starting ground blocks.
-        Assert.assertEquals("Incorrect blocks.", blocks, tile.getBlocks());
+        assertEquals("Incorrect blocks.", blocks, tile.getBlocks());
 
         blocks.add(new WoodBlock());
         // Modifying the parameter list should not affect the tile's blocks.
-        Assert.assertEquals("Modifying list modified tile's blocks.",
+        assertEquals("Modifying list modified tile's blocks.",
             3, tile.getBlocks().size());
 
         tile = new Tile(blocks); // Testing 3 ground blocks, 1 non-ground.
@@ -69,7 +69,7 @@ public class TileTest {
         blocks = makeBlockList(GrassBlock.class, 4);
         try {
             tile = new Tile(blocks);
-            Assert.fail("4 grass (ground) blocks, didn't throw.");
+            fail("4 grass (ground) blocks, didn't throw.");
         } catch (TooHighException e) {}
 
         blocks = makeBlockList(GrassBlock.class, 3);
@@ -81,7 +81,7 @@ public class TileTest {
         blocks.add(new WoodBlock());
         try {
             tile = new Tile(blocks);
-            Assert.fail("3 grass blocks, 6 wood blocks, didn't throw.");
+            fail("3 grass blocks, 6 wood blocks, didn't throw.");
         } catch (TooHighException e) {}
     }
 
@@ -91,24 +91,24 @@ public class TileTest {
 
         try {
             tile.addExit(null, tile);
-            Assert.fail("Null exit name should throw but didn't.");
+            fail("Null exit name should throw but didn't.");
         } catch (NoExitException e) {}
 
         try {
             tile.addExit("exit name", null);
-            Assert.fail("Null target tile should throw but didn't.");
+            fail("Null target tile should throw but didn't.");
         } catch (NoExitException e) {}
 
         Tile other = new Tile();
         tile.addExit("name", other);
-        Assert.assertTrue(
+        assertTrue(
             "New exit not stored.", tile.getExits().containsKey("name"));
-        Assert.assertEquals(
+        assertEquals(
             "New exit is the wrong tile.", other, tile.getExits().get("name"));
 
         Tile newTarget = new Tile();
         tile.addExit("name", newTarget);
-        Assert.assertEquals(
+        assertEquals(
             "Target with same name not overwritten.",
             newTarget, tile.getExits().get("name"));
     }
@@ -126,7 +126,7 @@ public class TileTest {
         map.put("down", tile);
         map.put("up", tile);
 
-        Assert.assertEquals("Incorrect exits.", map, tile.getExits());
+        assertEquals("Incorrect exits.", map, tile.getExits());
     }
 
     @Test
@@ -135,12 +135,12 @@ public class TileTest {
 
         try {
             tile.getTopBlock();
-            Assert.fail("Get top block of empty tile didn't throw.");
+            fail("Get top block of empty tile didn't throw.");
         } catch (TooLowException e) {}
 
         Block top = new WoodBlock();
         tile = new Tile(Arrays.asList((Block)new SoilBlock(), top));
-        Assert.assertEquals("Incorrect top block.", top, tile.getTopBlock());
+        assertEquals("Incorrect top block.", top, tile.getTopBlock());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class TileTest {
 
         try {
             tile.removeTopBlock();
-            Assert.fail("Remove top block of empty tile didn't throw.");
+            fail("Remove top block of empty tile didn't throw.");
         } catch (TooLowException e) {}
 
         List<Block> blockList = makeBlockList(WoodBlock.class, 2);
@@ -157,7 +157,7 @@ public class TileTest {
         Block bottomBlock = blockList.get(0);
         tile = new Tile(blockList);
         tile.removeTopBlock();
-        Assert.assertEquals(
+        assertEquals(
             "Top block incorrectly removed.",
             Arrays.asList(bottomBlock), tile.getBlocks()
         );
@@ -171,18 +171,18 @@ public class TileTest {
 
         try {
             tile.removeExit(null);
-            Assert.fail("Removing null exit didn't throw.");
+            fail("Removing null exit didn't throw.");
         } catch (NoExitException e) {}
 
         try {
             tile.removeExit("down");
-            Assert.fail("Removing non-existent exit didn't throw.");
+            fail("Removing non-existent exit didn't throw.");
         } catch (NoExitException e) {}
 
         Map<String, Tile> expected = new HashMap<String,Tile>();
         expected.put("right", tile);
         tile.removeExit("up");
-        Assert.assertEquals(
+        assertEquals(
             "Exit not removed correctly.", expected, tile.getExits());
     }
 
@@ -191,14 +191,14 @@ public class TileTest {
         Tile tile = new Tile(new ArrayList<Block>());
         try {
             tile.dig();
-            Assert.fail("Digging empty tile didn't throw.");
+            fail("Digging empty tile didn't throw.");
         } catch (TooLowException e) {}
 
         tile = new Tile();
         tile.placeBlock(new StoneBlock());
         try {
             tile.dig();
-            Assert.fail("Digging undiggable block didn't throw.");
+            fail("Digging undiggable block didn't throw.");
         } catch (InvalidBlockException e) {}
 
         List<Block> blocks = makeBlockList(WoodBlock.class, 5);
@@ -206,9 +206,9 @@ public class TileTest {
         Block topBlock = blocks.get(4);
         Block dugBlock = tile.dig();
 
-        Assert.assertEquals(
+        assertEquals(
             "Digging removed incorrect block.", topBlock, dugBlock);
-        Assert.assertEquals(
+        assertEquals(
             "Digging resulted in the incorrect blocks.",
             blocks.subList(0, 4), tile.getBlocks());
     }
@@ -218,27 +218,27 @@ public class TileTest {
         Tile tile = new Tile();
         try {
             tile.placeBlock(null);
-            Assert.fail("Placing null block didn't throw.");
+            fail("Placing null block didn't throw.");
         } catch (InvalidBlockException e) {}
         try {
             tile.placeBlock(new SoilBlock());
-            Assert.fail("Placing ground block above height 3 didn't throw.");
+            fail("Placing ground block above height 3 didn't throw.");
         } catch (TooHighException e) {}
 
         for (int i = 0; i < 5; i++) {
             Block topBlock = new WoodBlock();
             // Testing place until 8 blocks are on the tile. Should succeed.
             tile.placeBlock(topBlock);
-            Assert.assertEquals("Block not placed on top.",
+            assertEquals("Block not placed on top.",
                 topBlock, tile.getTopBlock());
         }
         try {
             tile.placeBlock(new WoodBlock());
-            Assert.fail("Placing normal block above 8 didn't throw.");
+            fail("Placing normal block above 8 didn't throw.");
         } catch (TooHighException e) {}
         try {
             tile.placeBlock(new SoilBlock());
-            Assert.fail("Placing ground block above 8 didn't throw.");
+            fail("Placing ground block above 8 didn't throw.");
         } catch (TooHighException e) {}
     }
 
@@ -249,12 +249,12 @@ public class TileTest {
 
         try {
             tile.moveBlock("non-existent");
-            Assert.fail("Moving via non-existent exit didn't throw.");
+            fail("Moving via non-existent exit didn't throw.");
         } catch (NoExitException e) {}
 
         try {
             tile.moveBlock(null);
-            Assert.fail("Moving via null exit didn't throw.");
+            fail("Moving via null exit didn't throw.");
         } catch (NoExitException e) {}
 
         tile.addExit("test exit", otherTile);
@@ -262,7 +262,7 @@ public class TileTest {
         tile.placeBlock(new StoneBlock());
         try {
             tile.moveBlock("test exit");
-            Assert.fail("Moving unmoveable block didn't throw.");
+            fail("Moving unmoveable block didn't throw.");
         } catch (InvalidBlockException e) {}
 
         Block blockToMove = new WoodBlock();
@@ -271,17 +271,17 @@ public class TileTest {
         // otherTile is 1 height lower here. Should succeed.
         tile.moveBlock("test exit");
 
-        Assert.assertNotEquals(
+        assertNotEquals(
             "Block not removed from original tile.",
             blockToMove, tile.getTopBlock());
-        Assert.assertEquals(
+        assertEquals(
             "Block placed on new tile.",
             blockToMove, otherTile.getTopBlock());
 
         otherTile.placeBlock(new StoneBlock());
         try {
             tile.moveBlock("test exit");
-            Assert.fail("Moving to equal height tile didn't throw.");
+            fail("Moving to equal height tile didn't throw.");
         } catch (TooHighException e) {}
 
         // Specific test for empty tiles.
@@ -290,7 +290,7 @@ public class TileTest {
         tile.addExit("test 2", otherTile);
         try {
             tile.moveBlock("test 2");
-            Assert.fail("Moving from empty tile to empty tile didn't throw.");
+            fail("Moving from empty tile to empty tile didn't throw.");
         } catch (TooHighException e) {}
     }
 }
