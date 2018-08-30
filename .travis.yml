@@ -6,6 +6,7 @@ install:
 script:
  - mvn test -B
  - /usr/bin/env python3 ./assemble_zip.py ${SUBMISSION_ZIP}
+ - javac CheckZipAssignment1.java
  - java CheckZipAssignment1 ${SUBMISSION_ZIP}
 deploy:
   provider: releases
