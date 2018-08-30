@@ -25,25 +25,39 @@ test_files = {
     ]
 }
 
-
 def main():
     print('Starting artifact build...')
     print('Copying to temp directory...')
-    shutil.copytree('.', './__temp')
-    os.chdir('./__temp')
+    #shutil.copytree('.', './__temp')
+    #os.chdir('./__temp')
 
-    print('Deleting spurious source files...')
-    for f in os.listdir(src_files['src_path']):
-        if f not in src_files['include']:
-            print('    Deleted', f)
-            os.unlink(src_files['src_path'] + '/' + f)
-        else:
-            print('    Kept', f)
+    os.makedirs('./__temp', exist_ok=True)
+
+    cp = ['.']
+    test_dir = os.path.join('./__temp', test_files['dest_path'])
+    for config in (src_files, test_files):
+        java_src = []
+
+        d = os.path.join('./__temp', config['dest_path'])
+        os.makedirs(d, exist_ok=True)
+        for f in config['include']:
+            s = os.path.join(config['src_path'], f)
+            print('Copying', s, 'to', d, '...')
+            shutil.copy2(s, os.path.normpath(d))
+            java_src.append(os.path.normpath(os.path.join(d, f)))
+
+        print('Compiling directory', d)
+        subprocess.check_call([r'C:\Program Files\Java\jdk1.8.0_181\bin\javac.exe', '-cp', os.sep.join(cp)]+java_src)
+        cp.append(d)
+
+    test_classes = (x for x in os.listdir(test_dir) if x.endswith('.java') and os.path.isfile(x))
+
+    print('Running tests...')
+    subprocess.check_call(
+        ['java -cp '+os.sep.join(cp)+' org.junit.runner.JUnitCore '+' '.join(test_classes)+'/*'])
 
     print('Executing tests...')
-    test_result = subprocess.call(['mvn clean test -B'], shell=True)
-    if test_result != 0:
-        sys.exit(test_result)
+    test_result = subprocess.check_call(['mvn clean test -B'], shell=True)
 
     print('Compiling artifact zip...')
 
