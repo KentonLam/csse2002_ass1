@@ -160,8 +160,8 @@ public class TileTest {
         tile.addExit("down", emptyTile);
 
         Map<String, Tile> map = new HashMap<>();
-        map.put("down", tile);
-        map.put("up", emptyTile);
+        map.put("up", tile);
+        map.put("down", emptyTile);
 
         assertEquals("Incorrect exits.", map, tile.getExits());
     }
