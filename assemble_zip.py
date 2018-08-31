@@ -59,14 +59,7 @@ def main():
         for f in file_structure['include']:
             print('    Adding', file_structure['src_path']+f)
             zf.write(file_structure['src_path']+f, file_structure['dest_path']+f)
-    print('Removing temp directory...')
-    os.chdir('..')
-    shutil.rmtree('__temp')
     print('Done.')
-
-
-
-
 
 if __name__ == '__main__':
     main()
