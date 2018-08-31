@@ -29,6 +29,7 @@ public class GrassBlockTest {
     }
 
     // Testing the abstract class GroundBlock.
+
     @Test
     public void testIsMoveable() {
         assertFalse("Grass (ground block) shouldn't be moveable.",
