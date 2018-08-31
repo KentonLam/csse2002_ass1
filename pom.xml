@@ -26,10 +26,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-        <!--  must be on the classpath  -->
         <groupId>org.jacoco</groupId>
-        <artifactId>org.jacoco.agent</artifactId>
-        <classifier>runtime</classifier>
+        <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.2</version>
         <scope>test</scope>
     </dependency>
@@ -91,22 +89,17 @@
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.2</version>
-            <configuration>
-                <destfile>${basedir}/target/coverage-reports/jacoco-unit.exec</destfile>
-                <datafile>${basedir}/target/coverage-reports/jacoco-unit.exec</datafile>
-            </configuration>
             <executions>
                 <execution>
-                    <id>jacoco-initialize</id>
                     <goals>
-                    <goal>prepare-agent</goal>
+                        <goal>prepare-agent</goal>
                     </goals>
                 </execution>
                 <execution>
-                    <id>jacoco-site</id>
-                    <phase>package</phase>
+                    <id>report</id>
+                    <phase>prepare-package</phase>
                     <goals>
-                    <goal>report</goal>
+                        <goal>report</goal>
                     </goals>
                 </execution>
             </executions>
